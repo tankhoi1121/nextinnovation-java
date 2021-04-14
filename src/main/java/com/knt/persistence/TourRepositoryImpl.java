@@ -67,5 +67,17 @@ public class TourRepositoryImpl implements TourRepository {
         List<Tourdetails> res = q.getResultList();
         return res;
     }
+
+    @Transactional
+    @Override
+    public Tourdetails x(int tourId) {
+        Session session = this.getSessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<Tourdetails> root = cq.from(Tourdetails.class);
+        cq.select(root).where(cb.equal(root.get(Tourdetails_.tourId), tourId));
+        TypedQuery<Tourdetails> q = session.createQuery(cq).setFirstResult(0).setMaxResults(1);
+        return q.getSingleResult();
+    }
     
 }

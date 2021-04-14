@@ -16,4 +16,5 @@ import java.util.List;
 public interface TourService {
     public Tour getTourById(int id);
     public List<Tourdetails> getTourDetailByTourId(int tourId);
+    public Tourdetails x (int tourId);
 }
