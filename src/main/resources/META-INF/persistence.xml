@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.knt_nextinnovation_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.knt.pojo.Product</class>
+    <class>com.knt.pojo.Commenttour</class>
+    <class>com.knt.pojo.News</class>
+    <class>com.knt.pojo.Supplier</class>
+    <class>com.knt.pojo.Tour</class>
+    <class>com.knt.pojo.Tourdetails</class>
+    <class>com.knt.pojo.Staff</class>
+    <class>com.knt.pojo.Place</class>
+    <class>com.knt.pojo.Customer</class>
+    <class>com.knt.pojo.Image</class>
+    <class>com.knt.pojo.Schedule</class>
+    <class>com.knt.pojo.Commentnews</class>
+    <class>com.knt.pojo.TourStaff</class>
+    <class>com.knt.pojo.TourSupplier</class>
+    <class>com.knt.pojo.ProductCustomer</class>
+    <class>com.knt.pojo.TourPlace</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/oihkapp?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="asus.123"/>
+    </properties>
+  </persistence-unit>
+</persistence>
