@@ -39,4 +39,10 @@ public class HelloController {
         
         return "test";
     }
+    
+    @GetMapping("/x")
+    public String x (Model model){
+        model.addAttribute("x", this.tourService.x(15212));
+        return "x";
+    }
 }
