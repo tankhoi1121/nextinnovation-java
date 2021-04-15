@@ -79,5 +79,29 @@ public class TourRepositoryImpl implements TourRepository {
         TypedQuery<Tourdetails> q = session.createQuery(cq).setFirstResult(0).setMaxResults(1);
         return q.getSingleResult();
     }
+
+    @Transactional
+    @Override
+    public List<Tour> getAllTour() {
+        Session session = this.getSessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<Tour> root = cq.from(Tour.class);
+        cq.select(root);
+        TypedQuery<Tour> q = session.createQuery(cq);
+        return q.getResultList();
+    }
+
+    @Transactional
+    @Override
+    public Tour getTourBySeason(String season) {
+        Session session = this.getSessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<Tour> root = cq.from(Tour.class);
+        cq.select(root).where(cb.equal(root.get(Tour_.season), season));
+        TypedQuery<Tour> q = session.createQuery(cq);
+        return q.getSingleResult();
+    }
     
 }

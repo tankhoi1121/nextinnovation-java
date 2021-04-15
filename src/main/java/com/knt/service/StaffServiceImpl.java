@@ -30,4 +30,21 @@ public class StaffServiceImpl implements StaffService{
         }
         return true;
     }    
+
+    @Override
+    public boolean updateStaff(int staffId, Staff staff) {
+        try {
+            if(!this.staffRepository.updateStaff(staffId, staff)){
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Staff getStaffById(int stafffId) {
+        return this.staffRepository.getStaffById(stafffId);
+    }
 }

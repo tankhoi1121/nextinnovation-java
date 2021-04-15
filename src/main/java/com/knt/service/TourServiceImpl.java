@@ -35,5 +35,15 @@ public class TourServiceImpl implements TourService {
     public Tourdetails x(int tourId) {
         return this.tourRepository.x(tourId);
     }
+
+    @Override
+    public List<Tour> getAllTour() {
+        return this.tourRepository.getAllTour();
+    }
+
+    @Override
+    public Tour getTourBySeason(String season) {
+        return this.tourRepository.getTourBySeason(season);
+    }
     
 }

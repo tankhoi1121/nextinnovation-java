@@ -23,10 +23,10 @@
                                 Du lịch theo mùa
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Mùa xuân</a></li>
-                                <li><a class="dropdown-item" href="#">Mùa hạ</a></li>
-                                <li><a class="dropdown-item" href="#">Mùa thu</a></li>
-                                <li><a class="dropdown-item" href="#">Mùa đông</a></li>
+                                <li><a class="dropdown-item" href="<c:url value="/tour/season/1"/>">Mùa xuân</a></li>
+                                <li><a class="dropdown-item" href="<c:url value="/tour/season/2"/>">Mùa hạ</a></li>
+                                <li><a class="dropdown-item" href="<c:url value="/tour/season/3"/>">Mùa thu</a></li>
+                                <li><a class="dropdown-item" href="<c:url value="/tour/season/4"/>">Mùa đông</a></li>
                             </ul>
                         </li>                        
                     </ul>
@@ -40,38 +40,40 @@
         <div class="container">
             <div class ="d-flex">
                 <div class="row">
-                    <div class ="col">
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="<c:url value="/resources/image/Tower_of_Taipei_101.jpg"/>" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Du lịch Đài Loan mùa hoa Anh Đào 5 ngày 4 đêm từ Sài Gòn giá tốt 2020</h5>
-                                <div class="card-text">
-                                    <div class="row">
-                                        <div class="col">
-                                            <label><i class="far fa-clock"></i></label>
+                    <c:forEach items="${all_tour}" var ="item">
+                        <div class ="col">                        
+                            <div class="card" style="width: 18rem;">
+                                <img class="card-img-top" src="<c:url value="/resources/image/Tower_of_Taipei_101.jpg"/>" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">${item.name}</h5>
+                                    <div class="card-text">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label><i class="far fa-clock"></i></label>
+                                            </div>
+                                            <div class="col">
+                                                <label>5 ngày 4 đêm</label>  
+                                            </div>                                        
                                         </div>
-                                        <div class="col">
-                                          <label>5 ngày 4 đêm</label>  
-                                        </div>                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <label><i class="far fa-calendar-alt"></i></label>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label><i class="far fa-calendar-alt"></i></label>
+                                            </div>
+                                            <div class="col">
+                                                <label>07/04/2020</label>  
+                                            </div>                                        
                                         </div>
-                                        <div class="col">
-                                          <label>07/04/2020</label>  
-                                        </div>                                        
+                                        <div class="row">                                        
+                                            <div class="col alert alert-danger">
+                                                <label>10,999,000đ</label>  
+                                            </div>                                        
+                                        </div>
                                     </div>
-                                    <div class="row">                                        
-                                        <div class="col alert alert-danger">
-                                          <label>10,999,000đ</label>  
-                                        </div>                                        
-                                    </div>
+                                    <a href="<c:url value="/detail"/>" class="btn btn-primary">Chi tiết</a>
                                 </div>
-                                <a href="<c:url value="/detail"/>" class="btn btn-primary">Chi tiết</a>
                             </div>
                         </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class HelloController {
@@ -17,10 +18,40 @@ public class HelloController {
     @GetMapping("/hello")
     public String hello(Model model) {
 
-        model.addAttribute("name", "John Doe");
+        model.addAttribute("all_tour", this.tourService.getAllTour());
 
         return "welcome";
     }
+    
+    @GetMapping("/tour/season/{id}")
+    public String getTourBySeason(@PathVariable int id, Model model){
+        String season = "";
+        switch(id){
+            case 1:
+                season = "xuân";
+                break;
+            case 2:
+                season = "hạ";
+                break;
+            case 3:
+                season ="thu";
+                break;
+            case 4:
+                season = "đông";
+                break;
+            default:
+                break;
+        }
+        
+        if(!season.isEmpty()){
+            model.addAttribute("info", this.tourService.getTourBySeason(season));
+        }else{
+            model.addAttribute("info", "");
+        }
+        
+        return "season";
+    }
+    
     
     @GetMapping("/detail")
     public String tourDetail(Model model){

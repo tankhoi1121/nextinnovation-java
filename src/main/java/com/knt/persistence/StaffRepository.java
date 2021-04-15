@@ -13,4 +13,6 @@ import com.knt.pojo.Staff;
  */
 public interface StaffRepository {
     public boolean addStaff(Staff staff);
+    public boolean updateStaff(int staffId, Staff staff);
+    public Staff getStaffById(int stafffId);
 }
