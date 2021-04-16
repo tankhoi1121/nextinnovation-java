@@ -18,6 +18,7 @@
     <class>com.knt.pojo.TourSupplier</class>
     <class>com.knt.pojo.ProductCustomer</class>
     <class>com.knt.pojo.TourPlace</class>
+    <class>com.knt.pojo.Temp</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/oihkapp?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

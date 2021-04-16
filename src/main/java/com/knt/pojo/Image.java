@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -26,12 +25,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author bruce_
  */
 @Entity
-@Table(name = "tourdetails")
+@Table(name = "image")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tourdetails.findAll", query = "SELECT t FROM Tourdetails t"),
-    @NamedQuery(name = "Tourdetails.findById", query = "SELECT t FROM Tourdetails t WHERE t.id = :id")})
-public class Tourdetails implements Serializable {
+    @NamedQuery(name = "Image.findAll", query = "SELECT i FROM Image i"),
+    @NamedQuery(name = "Image.findById", query = "SELECT i FROM Image i WHERE i.id = :id"),
+    @NamedQuery(name = "Image.findByUrl", query = "SELECT i FROM Image i WHERE i.url = :url")})
+public class Image implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,22 +39,17 @@ public class Tourdetails implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "header")
-    private String header;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "_description")
-    private String description;
+    @Size(max = 3000)
+    @Column(name = "url")
+    private String url;
     @JoinColumn(name = "TourId", referencedColumnName = "id")
     @ManyToOne
     private Tour tourId;
 
-    public Tourdetails() {
+    public Image() {
     }
 
-    public Tourdetails(Integer id) {
+    public Image(Integer id) {
         this.id = id;
     }
 
@@ -66,20 +61,12 @@ public class Tourdetails implements Serializable {
         this.id = id;
     }
 
-    public String getHeader() {
-        return header;
+    public String getUrl() {
+        return url;
     }
 
-    public void setHeader(String header) {
-        this.header = header;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Tour getTourId() {
@@ -100,10 +87,10 @@ public class Tourdetails implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tourdetails)) {
+        if (!(object instanceof Image)) {
             return false;
         }
-        Tourdetails other = (Tourdetails) object;
+        Image other = (Image) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -112,7 +99,7 @@ public class Tourdetails implements Serializable {
 
     @Override
     public String toString() {
-        return "com.knt.pojo.Tourdetails[ id=" + id + " ]";
+        return "com.knt.pojo.Image[ id=" + id + " ]";
     }
     
 }

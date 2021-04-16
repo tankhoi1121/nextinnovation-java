@@ -23,10 +23,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author NguyenTan.Khoi
+ * @author bruce_
  */
 @Entity
-@Table(name = "tour", catalog = "oihkapp", schema = "")
+@Table(name = "tour")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tour.findAll", query = "SELECT t FROM Tour t"),
@@ -38,29 +38,41 @@ public class Tour implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Lob
     @Size(max = 65535)
-    @Column(name = "_name", length = 65535)
+    @Column(name = "_name")
     private String name;
     @Size(max = 255)
-    @Column(name = "season", length = 255)
+    @Column(name = "season")
     private String season;
     @Lob
     @Size(max = 65535)
-    @Column(name = "SummarySchedule", length = 65535)
+    @Column(name = "SummarySchedule")
     private String summarySchedule;
     @Lob
     @Size(max = 65535)
-    @Column(name = "ConditionRemoveTour", length = 65535)
+    @Column(name = "ConditionRemoveTour")
     private String conditionRemoveTour;
     @Lob
     @Size(max = 65535)
-    @Column(name = "ServiceIncludeAndNotInclude", length = 65535)
+    @Column(name = "ServiceIncludeAndNotInclude")
     private String serviceIncludeAndNotInclude;
     @OneToMany(mappedBy = "tourId")
+    private Collection<Image> imageCollection;
+    @OneToMany(mappedBy = "tourId")
+    private Collection<Commenttour> commenttourCollection;
+    @OneToMany(mappedBy = "tourId")
+    private Collection<TourStaff> tourStaffCollection;
+    @OneToMany(mappedBy = "tourId")
+    private Collection<TourSupplier> tourSupplierCollection;
+    @OneToMany(mappedBy = "tourId")
     private Collection<Tourdetails> tourdetailsCollection;
+    @OneToMany(mappedBy = "tourId")
+    private Collection<TourPlace> tourPlaceCollection;
+    @OneToMany(mappedBy = "tourId")
+    private Collection<Schedule> scheduleCollection;
 
     public Tour() {
     }
@@ -118,12 +130,66 @@ public class Tour implements Serializable {
     }
 
     @XmlTransient
+    public Collection<Image> getImageCollection() {
+        return imageCollection;
+    }
+
+    public void setImageCollection(Collection<Image> imageCollection) {
+        this.imageCollection = imageCollection;
+    }
+
+    @XmlTransient
+    public Collection<Commenttour> getCommenttourCollection() {
+        return commenttourCollection;
+    }
+
+    public void setCommenttourCollection(Collection<Commenttour> commenttourCollection) {
+        this.commenttourCollection = commenttourCollection;
+    }
+
+    @XmlTransient
+    public Collection<TourStaff> getTourStaffCollection() {
+        return tourStaffCollection;
+    }
+
+    public void setTourStaffCollection(Collection<TourStaff> tourStaffCollection) {
+        this.tourStaffCollection = tourStaffCollection;
+    }
+
+    @XmlTransient
+    public Collection<TourSupplier> getTourSupplierCollection() {
+        return tourSupplierCollection;
+    }
+
+    public void setTourSupplierCollection(Collection<TourSupplier> tourSupplierCollection) {
+        this.tourSupplierCollection = tourSupplierCollection;
+    }
+
+    @XmlTransient
     public Collection<Tourdetails> getTourdetailsCollection() {
         return tourdetailsCollection;
     }
 
     public void setTourdetailsCollection(Collection<Tourdetails> tourdetailsCollection) {
         this.tourdetailsCollection = tourdetailsCollection;
+    }
+
+    @XmlTransient
+    public Collection<TourPlace> getTourPlaceCollection() {
+        return tourPlaceCollection;
+    }
+
+    public void setTourPlaceCollection(Collection<TourPlace> tourPlaceCollection) {
+        this.tourPlaceCollection = tourPlaceCollection;
+    }
+
+    @XmlTransient
+    public Collection<Schedule> getScheduleCollection() {
+        return scheduleCollection;
+    }
+
+    public void setScheduleCollection(Collection<Schedule> scheduleCollection) {
+        this.scheduleCollection = scheduleCollection;
     }
 
     @Override

@@ -26,12 +26,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author bruce_
  */
 @Entity
-@Table(name = "tourdetails")
+@Table(name = "commenttour")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tourdetails.findAll", query = "SELECT t FROM Tourdetails t"),
-    @NamedQuery(name = "Tourdetails.findById", query = "SELECT t FROM Tourdetails t WHERE t.id = :id")})
-public class Tourdetails implements Serializable {
+    @NamedQuery(name = "Commenttour.findAll", query = "SELECT c FROM Commenttour c"),
+    @NamedQuery(name = "Commenttour.findById", query = "SELECT c FROM Commenttour c WHERE c.id = :id")})
+public class Commenttour implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,20 +41,24 @@ public class Tourdetails implements Serializable {
     private Integer id;
     @Lob
     @Size(max = 65535)
-    @Column(name = "header")
-    private String header;
+    @Column(name = "commentator")
+    private String commentator;
     @Lob
     @Size(max = 65535)
-    @Column(name = "_description")
-    private String description;
+    @Column(name = "EmailCommentator")
+    private String emailCommentator;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "content")
+    private String content;
     @JoinColumn(name = "TourId", referencedColumnName = "id")
     @ManyToOne
     private Tour tourId;
 
-    public Tourdetails() {
+    public Commenttour() {
     }
 
-    public Tourdetails(Integer id) {
+    public Commenttour(Integer id) {
         this.id = id;
     }
 
@@ -66,20 +70,28 @@ public class Tourdetails implements Serializable {
         this.id = id;
     }
 
-    public String getHeader() {
-        return header;
+    public String getCommentator() {
+        return commentator;
     }
 
-    public void setHeader(String header) {
-        this.header = header;
+    public void setCommentator(String commentator) {
+        this.commentator = commentator;
     }
 
-    public String getDescription() {
-        return description;
+    public String getEmailCommentator() {
+        return emailCommentator;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEmailCommentator(String emailCommentator) {
+        this.emailCommentator = emailCommentator;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Tour getTourId() {
@@ -100,10 +112,10 @@ public class Tourdetails implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tourdetails)) {
+        if (!(object instanceof Commenttour)) {
             return false;
         }
-        Tourdetails other = (Tourdetails) object;
+        Commenttour other = (Commenttour) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -112,7 +124,7 @@ public class Tourdetails implements Serializable {
 
     @Override
     public String toString() {
-        return "com.knt.pojo.Tourdetails[ id=" + id + " ]";
+        return "com.knt.pojo.Commenttour[ id=" + id + " ]";
     }
     
 }

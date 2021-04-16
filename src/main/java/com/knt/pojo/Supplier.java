@@ -27,13 +27,15 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author bruce_
  */
 @Entity
-@Table(name = "staff")
+@Table(name = "supplier")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Staff.findAll", query = "SELECT s FROM Staff s"),
-    @NamedQuery(name = "Staff.findById", query = "SELECT s FROM Staff s WHERE s.id = :id"),
-    @NamedQuery(name = "Staff.findByPhone", query = "SELECT s FROM Staff s WHERE s.phone = :phone")})
-public class Staff implements Serializable {
+    @NamedQuery(name = "Supplier.findAll", query = "SELECT s FROM Supplier s"),
+    @NamedQuery(name = "Supplier.findById", query = "SELECT s FROM Supplier s WHERE s.id = :id"),
+    @NamedQuery(name = "Supplier.findByPhone", query = "SELECT s FROM Supplier s WHERE s.phone = :phone"),
+    @NamedQuery(name = "Supplier.findByEmail", query = "SELECT s FROM Supplier s WHERE s.email = :email"),
+    @NamedQuery(name = "Supplier.findByServicePrice", query = "SELECT s FROM Supplier s WHERE s.servicePrice = :servicePrice")})
+public class Supplier implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,25 +56,22 @@ public class Staff implements Serializable {
     @Column(name = "phone")
     private String phone;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 300)
     @Column(name = "email")
     private String email;
     @Lob
     @Size(max = 65535)
-    @Column(name = "department")
-    private String department;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "_role")
-    private String role;
-    @OneToMany(mappedBy = "staffId")
-    private Collection<TourStaff> tourStaffCollection;
+    @Column(name = "ServiceType")
+    private String serviceType;
+    @Column(name = "ServicePrice")
+    private Integer servicePrice;
+    @OneToMany(mappedBy = "supplierId")
+    private Collection<TourSupplier> tourSupplierCollection;
 
-    public Staff() {
+    public Supplier() {
     }
 
-    public Staff(Integer id) {
+    public Supplier(Integer id) {
         this.id = id;
     }
 
@@ -116,29 +115,29 @@ public class Staff implements Serializable {
         this.email = email;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getServiceType() {
+        return serviceType;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
     }
 
-    public String getRole() {
-        return role;
+    public Integer getServicePrice() {
+        return servicePrice;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setServicePrice(Integer servicePrice) {
+        this.servicePrice = servicePrice;
     }
 
     @XmlTransient
-    public Collection<TourStaff> getTourStaffCollection() {
-        return tourStaffCollection;
+    public Collection<TourSupplier> getTourSupplierCollection() {
+        return tourSupplierCollection;
     }
 
-    public void setTourStaffCollection(Collection<TourStaff> tourStaffCollection) {
-        this.tourStaffCollection = tourStaffCollection;
+    public void setTourSupplierCollection(Collection<TourSupplier> tourSupplierCollection) {
+        this.tourSupplierCollection = tourSupplierCollection;
     }
 
     @Override
@@ -151,10 +150,10 @@ public class Staff implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Staff)) {
+        if (!(object instanceof Supplier)) {
             return false;
         }
-        Staff other = (Staff) object;
+        Supplier other = (Supplier) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -163,7 +162,7 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "com.knt.pojo.Staff[ id=" + id + " ]";
+        return "com.knt.pojo.Supplier[ id=" + id + " ]";
     }
     
 }

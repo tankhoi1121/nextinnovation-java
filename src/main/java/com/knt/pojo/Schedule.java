@@ -6,6 +6,7 @@
 package com.knt.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,12 +14,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -26,12 +27,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author bruce_
  */
 @Entity
-@Table(name = "tourdetails")
+@Table(name = "_schedule")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tourdetails.findAll", query = "SELECT t FROM Tourdetails t"),
-    @NamedQuery(name = "Tourdetails.findById", query = "SELECT t FROM Tourdetails t WHERE t.id = :id")})
-public class Tourdetails implements Serializable {
+    @NamedQuery(name = "Schedule.findAll", query = "SELECT s FROM Schedule s"),
+    @NamedQuery(name = "Schedule.findById", query = "SELECT s FROM Schedule s WHERE s.id = :id"),
+    @NamedQuery(name = "Schedule.findByStartDate", query = "SELECT s FROM Schedule s WHERE s.startDate = :startDate"),
+    @NamedQuery(name = "Schedule.findByEndDate", query = "SELECT s FROM Schedule s WHERE s.endDate = :endDate")})
+public class Schedule implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,22 +42,20 @@ public class Tourdetails implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "header")
-    private String header;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "_description")
-    private String description;
+    @Column(name = "StartDate")
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
+    @Column(name = "EndDate")
+    @Temporal(TemporalType.DATE)
+    private Date endDate;
     @JoinColumn(name = "TourId", referencedColumnName = "id")
     @ManyToOne
     private Tour tourId;
 
-    public Tourdetails() {
+    public Schedule() {
     }
 
-    public Tourdetails(Integer id) {
+    public Schedule(Integer id) {
         this.id = id;
     }
 
@@ -66,20 +67,20 @@ public class Tourdetails implements Serializable {
         this.id = id;
     }
 
-    public String getHeader() {
-        return header;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setHeader(String header) {
-        this.header = header;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public String getDescription() {
-        return description;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public Tour getTourId() {
@@ -100,10 +101,10 @@ public class Tourdetails implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tourdetails)) {
+        if (!(object instanceof Schedule)) {
             return false;
         }
-        Tourdetails other = (Tourdetails) object;
+        Schedule other = (Schedule) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -112,7 +113,7 @@ public class Tourdetails implements Serializable {
 
     @Override
     public String toString() {
-        return "com.knt.pojo.Tourdetails[ id=" + id + " ]";
+        return "com.knt.pojo.Schedule[ id=" + id + " ]";
     }
     
 }

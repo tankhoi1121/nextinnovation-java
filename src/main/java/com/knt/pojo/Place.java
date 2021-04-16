@@ -6,32 +6,34 @@
 package com.knt.pojo;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author bruce_
  */
 @Entity
-@Table(name = "tourdetails")
+@Table(name = "place")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tourdetails.findAll", query = "SELECT t FROM Tourdetails t"),
-    @NamedQuery(name = "Tourdetails.findById", query = "SELECT t FROM Tourdetails t WHERE t.id = :id")})
-public class Tourdetails implements Serializable {
+    @NamedQuery(name = "Place.findAll", query = "SELECT p FROM Place p"),
+    @NamedQuery(name = "Place.findById", query = "SELECT p FROM Place p WHERE p.id = :id"),
+    @NamedQuery(name = "Place.findByFee", query = "SELECT p FROM Place p WHERE p.fee = :fee")})
+public class Place implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,20 +43,21 @@ public class Tourdetails implements Serializable {
     private Integer id;
     @Lob
     @Size(max = 65535)
-    @Column(name = "header")
-    private String header;
+    @Column(name = "_name")
+    private String name;
     @Lob
     @Size(max = 65535)
-    @Column(name = "_description")
-    private String description;
-    @JoinColumn(name = "TourId", referencedColumnName = "id")
-    @ManyToOne
-    private Tour tourId;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "fee")
+    private Integer fee;
+    @OneToMany(mappedBy = "placeId")
+    private Collection<TourPlace> tourPlaceCollection;
 
-    public Tourdetails() {
+    public Place() {
     }
 
-    public Tourdetails(Integer id) {
+    public Place(Integer id) {
         this.id = id;
     }
 
@@ -66,28 +69,37 @@ public class Tourdetails implements Serializable {
         this.id = id;
     }
 
-    public String getHeader() {
-        return header;
+    public String getName() {
+        return name;
     }
 
-    public void setHeader(String header) {
-        this.header = header;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public Tour getTourId() {
-        return tourId;
+    public Integer getFee() {
+        return fee;
     }
 
-    public void setTourId(Tour tourId) {
-        this.tourId = tourId;
+    public void setFee(Integer fee) {
+        this.fee = fee;
+    }
+
+    @XmlTransient
+    public Collection<TourPlace> getTourPlaceCollection() {
+        return tourPlaceCollection;
+    }
+
+    public void setTourPlaceCollection(Collection<TourPlace> tourPlaceCollection) {
+        this.tourPlaceCollection = tourPlaceCollection;
     }
 
     @Override
@@ -100,10 +112,10 @@ public class Tourdetails implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tourdetails)) {
+        if (!(object instanceof Place)) {
             return false;
         }
-        Tourdetails other = (Tourdetails) object;
+        Place other = (Place) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -112,7 +124,7 @@ public class Tourdetails implements Serializable {
 
     @Override
     public String toString() {
-        return "com.knt.pojo.Tourdetails[ id=" + id + " ]";
+        return "com.knt.pojo.Place[ id=" + id + " ]";
     }
     
 }

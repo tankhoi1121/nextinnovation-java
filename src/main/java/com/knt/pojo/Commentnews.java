@@ -26,12 +26,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author bruce_
  */
 @Entity
-@Table(name = "tourdetails")
+@Table(name = "commentnews")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tourdetails.findAll", query = "SELECT t FROM Tourdetails t"),
-    @NamedQuery(name = "Tourdetails.findById", query = "SELECT t FROM Tourdetails t WHERE t.id = :id")})
-public class Tourdetails implements Serializable {
+    @NamedQuery(name = "Commentnews.findAll", query = "SELECT c FROM Commentnews c"),
+    @NamedQuery(name = "Commentnews.findById", query = "SELECT c FROM Commentnews c WHERE c.id = :id")})
+public class Commentnews implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,20 +41,16 @@ public class Tourdetails implements Serializable {
     private Integer id;
     @Lob
     @Size(max = 65535)
-    @Column(name = "header")
-    private String header;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "_description")
-    private String description;
-    @JoinColumn(name = "TourId", referencedColumnName = "id")
+    @Column(name = "content")
+    private String content;
+    @JoinColumn(name = "NewsId", referencedColumnName = "id")
     @ManyToOne
-    private Tour tourId;
+    private News newsId;
 
-    public Tourdetails() {
+    public Commentnews() {
     }
 
-    public Tourdetails(Integer id) {
+    public Commentnews(Integer id) {
         this.id = id;
     }
 
@@ -66,28 +62,20 @@ public class Tourdetails implements Serializable {
         this.id = id;
     }
 
-    public String getHeader() {
-        return header;
+    public String getContent() {
+        return content;
     }
 
-    public void setHeader(String header) {
-        this.header = header;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getDescription() {
-        return description;
+    public News getNewsId() {
+        return newsId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Tour getTourId() {
-        return tourId;
-    }
-
-    public void setTourId(Tour tourId) {
-        this.tourId = tourId;
+    public void setNewsId(News newsId) {
+        this.newsId = newsId;
     }
 
     @Override
@@ -100,10 +88,10 @@ public class Tourdetails implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tourdetails)) {
+        if (!(object instanceof Commentnews)) {
             return false;
         }
-        Tourdetails other = (Tourdetails) object;
+        Commentnews other = (Commentnews) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -112,7 +100,7 @@ public class Tourdetails implements Serializable {
 
     @Override
     public String toString() {
-        return "com.knt.pojo.Tourdetails[ id=" + id + " ]";
+        return "com.knt.pojo.Commentnews[ id=" + id + " ]";
     }
     
 }

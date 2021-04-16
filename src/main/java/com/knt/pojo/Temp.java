@@ -12,13 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -26,12 +22,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author bruce_
  */
 @Entity
-@Table(name = "tourdetails")
+@Table(name = "temp")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tourdetails.findAll", query = "SELECT t FROM Tourdetails t"),
-    @NamedQuery(name = "Tourdetails.findById", query = "SELECT t FROM Tourdetails t WHERE t.id = :id")})
-public class Tourdetails implements Serializable {
+    @NamedQuery(name = "Temp.findAll", query = "SELECT t FROM Temp t"),
+    @NamedQuery(name = "Temp.findById", query = "SELECT t FROM Temp t WHERE t.id = :id"),
+    @NamedQuery(name = "Temp.findByRevernue", query = "SELECT t FROM Temp t WHERE t.revernue = :revernue"),
+    @NamedQuery(name = "Temp.findByMonth", query = "SELECT t FROM Temp t WHERE t.month = :month"),
+    @NamedQuery(name = "Temp.findByYear", query = "SELECT t FROM Temp t WHERE t.year = :year")})
+public class Temp implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,22 +38,17 @@ public class Tourdetails implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "header")
-    private String header;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "_description")
-    private String description;
-    @JoinColumn(name = "TourId", referencedColumnName = "id")
-    @ManyToOne
-    private Tour tourId;
+    @Column(name = "revernue")
+    private Integer revernue;
+    @Column(name = "_month")
+    private Integer month;
+    @Column(name = "_year")
+    private Integer year;
 
-    public Tourdetails() {
+    public Temp() {
     }
 
-    public Tourdetails(Integer id) {
+    public Temp(Integer id) {
         this.id = id;
     }
 
@@ -66,28 +60,28 @@ public class Tourdetails implements Serializable {
         this.id = id;
     }
 
-    public String getHeader() {
-        return header;
+    public Integer getRevernue() {
+        return revernue;
     }
 
-    public void setHeader(String header) {
-        this.header = header;
+    public void setRevernue(Integer revernue) {
+        this.revernue = revernue;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getMonth() {
+        return month;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMonth(Integer month) {
+        this.month = month;
     }
 
-    public Tour getTourId() {
-        return tourId;
+    public Integer getYear() {
+        return year;
     }
 
-    public void setTourId(Tour tourId) {
-        this.tourId = tourId;
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
     @Override
@@ -100,10 +94,10 @@ public class Tourdetails implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tourdetails)) {
+        if (!(object instanceof Temp)) {
             return false;
         }
-        Tourdetails other = (Tourdetails) object;
+        Temp other = (Temp) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -112,7 +106,7 @@ public class Tourdetails implements Serializable {
 
     @Override
     public String toString() {
-        return "com.knt.pojo.Tourdetails[ id=" + id + " ]";
+        return "com.knt.pojo.Temp[ id=" + id + " ]";
     }
     
 }

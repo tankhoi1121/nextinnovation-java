@@ -27,13 +27,14 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author bruce_
  */
 @Entity
-@Table(name = "staff")
+@Table(name = "customer")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Staff.findAll", query = "SELECT s FROM Staff s"),
-    @NamedQuery(name = "Staff.findById", query = "SELECT s FROM Staff s WHERE s.id = :id"),
-    @NamedQuery(name = "Staff.findByPhone", query = "SELECT s FROM Staff s WHERE s.phone = :phone")})
-public class Staff implements Serializable {
+    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
+    @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id"),
+    @NamedQuery(name = "Customer.findByPhone", query = "SELECT c FROM Customer c WHERE c.phone = :phone"),
+    @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")})
+public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,25 +55,16 @@ public class Staff implements Serializable {
     @Column(name = "phone")
     private String phone;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 300)
     @Column(name = "email")
     private String email;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "department")
-    private String department;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "_role")
-    private String role;
-    @OneToMany(mappedBy = "staffId")
-    private Collection<TourStaff> tourStaffCollection;
+    @OneToMany(mappedBy = "customerId")
+    private Collection<ProductCustomer> productCustomerCollection;
 
-    public Staff() {
+    public Customer() {
     }
 
-    public Staff(Integer id) {
+    public Customer(Integer id) {
         this.id = id;
     }
 
@@ -116,29 +108,13 @@ public class Staff implements Serializable {
         this.email = email;
     }
 
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     @XmlTransient
-    public Collection<TourStaff> getTourStaffCollection() {
-        return tourStaffCollection;
+    public Collection<ProductCustomer> getProductCustomerCollection() {
+        return productCustomerCollection;
     }
 
-    public void setTourStaffCollection(Collection<TourStaff> tourStaffCollection) {
-        this.tourStaffCollection = tourStaffCollection;
+    public void setProductCustomerCollection(Collection<ProductCustomer> productCustomerCollection) {
+        this.productCustomerCollection = productCustomerCollection;
     }
 
     @Override
@@ -151,10 +127,10 @@ public class Staff implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Staff)) {
+        if (!(object instanceof Customer)) {
             return false;
         }
-        Staff other = (Staff) object;
+        Customer other = (Customer) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -163,7 +139,7 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "com.knt.pojo.Staff[ id=" + id + " ]";
+        return "com.knt.pojo.Customer[ id=" + id + " ]";
     }
     
 }

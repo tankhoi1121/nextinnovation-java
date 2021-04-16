@@ -5,6 +5,7 @@
  */
 package com.knt.persistence;
 
+
 import com.knt.pojo.Tour;
 import com.knt.pojo.Tour_;
 import com.knt.pojo.Tourdetails;
@@ -15,12 +16,14 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CollectionJoin;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
+import javax.transaction.Transaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -102,6 +105,47 @@ public class TourRepositoryImpl implements TourRepository {
         cq.select(root).where(cb.equal(root.get(Tour_.season), season));
         TypedQuery<Tour> q = session.createQuery(cq);
         return q.getSingleResult();
+    }
+
+    @Transactional
+    @Override
+    public boolean addTour(Tour tour) {
+        try {
+            Session session = this.getSessionFactory.getObject().getCurrentSession();
+            Transaction tx;
+            tx = (Transaction) session.beginTransaction();
+            session.save(tour);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Transactional
+    @Override
+    public boolean updateTour(int tourId, Tour tour) {
+        try {
+            Session session = this.getSessionFactory.getObject().getCurrentSession();
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaUpdate<Tour> cu = cb.createCriteriaUpdate(Tour.class);
+            Root<Tour> root = cu.from(Tour.class);
+            Tour _tourlocal = this.getTourById(tourId);
+            
+            if(!_tourlocal.equals(tour)){
+                cu.set("id", tour.getId());
+                cu.set("name", tour.getName());
+                cu.set("season", tour.getSeason());
+                cu.set("summarySchedule", tour.getSummarySchedule());
+                cu.set("conditionRemoveTour", tour.getConditionRemoveTour());
+                cu.set("serviceIncludeAndNotInclude", tour.getServiceIncludeAndNotInclude());
+            }else{
+                return false;
+            }
+            
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
     
 }
