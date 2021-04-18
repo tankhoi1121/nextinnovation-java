@@ -25,13 +25,13 @@
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">                      
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Seasonal Travel
+                                    Du lịch theo mùa
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Spring</a></li>
-                                    <li><a class="dropdown-item" href="#">Summer</a></li>
-                                    <li><a class="dropdown-item" href="#">Fall</a></li>
-                                    <li><a class="dropdown-item" href="#">Winter</a></li>
+                                    <li><a class="dropdown-item" href="<c:url value="/tour/season/1"/>">Mùa xuân</a></li>
+                                    <li><a class="dropdown-item" href="<c:url value="/tour/season/2"/>">Mùa hạ</a></li>
+                                    <li><a class="dropdown-item" href="<c:url value="/tour/season/3"/>">Mùa thu</a></li>
+                                    <li><a class="dropdown-item" href="<c:url value="/tour/season/4"/>">Mùa đông</a></li>
                                 </ul>
                             </li>                        
                         </ul>
@@ -92,6 +92,14 @@
                     <div class="col-lg-10" data-spy="scroll" data-target="#list-example" data-offset="0">
                         <h4 id="list-item-1">Lịch trình</h4>
                         <p>${tour.summarySchedule}</p>
+
+                        <c:forEach items="allTourDetailById" var = "X">
+                            <ul class="list-group">
+                                <li class="list-group-item">${X.header}</li>
+                                <li class="list-group-item">${X.description}</li>
+                            </ul>
+                        </c:forEach>
+
                         <h4 id="list-item-5">Bình luận</h4>
                         <div class="row">
                             <div class = "col">

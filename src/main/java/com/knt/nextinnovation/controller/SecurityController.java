@@ -8,9 +8,11 @@ package com.knt.nextinnovation.controller;
 import com.knt.pojo.Commenttour;
 import com.knt.pojo.Staff;
 import com.knt.pojo.Tour;
+import com.knt.pojo.Tourdetails;
 import com.knt.service.CommentTourService;
 import com.knt.service.StaffService;
 import com.knt.service.TourService;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,6 +153,18 @@ public class SecurityController {
         this.commentTourService.addComment(ct);
         Commenttour commenttour = new Commenttour();
         return commenttour;
+    }
+
+    @GetMapping("/add_tour_detail")
+    public String addTourDetailsUI() {
+        return "add_tour_detail";
+    }
+
+    @PostMapping("/add_tour_detail")
+    public @ResponseBody
+    List<Tourdetails> addTourDetails(@RequestBody List<Tourdetails> tourDetails) {
+        this.tourService.addListTourDetails(tourDetails);
+        return tourDetails;
     }
 
 }// End Class

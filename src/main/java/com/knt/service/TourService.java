@@ -28,4 +28,6 @@ public interface TourService {
     public boolean addTour(Tour tour);
 
     public boolean updateTour(Tour tour);
+
+    public boolean addListTourDetails(List<Tourdetails> tour);
 }

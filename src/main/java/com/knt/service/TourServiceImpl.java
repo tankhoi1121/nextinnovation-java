@@ -71,4 +71,9 @@ public class TourServiceImpl implements TourService {
         return true;
     }
 
+    @Override
+    public boolean addListTourDetails(List<Tourdetails> list) {
+        return this.tourRepository.addListTourDetails(list);
+    }
+
 }

@@ -19,6 +19,9 @@
 //}
 
 
+var count = 0;
+var listTD = [];
+
 
 function addComment() {
     let commentor = document.getElementById("commentor");
@@ -39,4 +42,58 @@ function addComment() {
         console.log(res);
         location.reload();
     })
+}
+
+function getValue() {
+//    let tourId = document.getElementById("tourId");
+//    let header = document.getElementById("header");
+//    let description = document.getElementById("description");
+    var getEle = {
+        tourId: document.getElementById("tourId"),
+        header: document.getElementById("header"),
+        description: document.getElementById("description")
+    }
+
+    var td = {
+        tourId: getEle.tourId.value,
+        header: getEle.header.value,
+        description: getEle.header.value
+    }
+
+
+    count = count + 1;
+
+    return td;
+}
+
+
+
+
+function addTourDetailToList(listTD) {
+    listTD.push(getValue());
+    // return listTD;
+}
+
+function x() {
+    var getEle = {
+        tourId: document.getElementById("tourId"),
+        header: document.getElementById("header"),
+        description: document.getElementById("description")
+    };
+    getEle.tourId.value = "";
+    getEle.header.value = "";
+    getEle.description.value = "";
+}
+
+async function sendListTourDetail(listTD) {
+    fetch("/nextinnovation/admin/add_tour_detail", {
+        method: "POST",
+        headers: {"Content-type": "application/json;charset=UTF-8"},
+        body: JSON.stringify(listTD),
+    }).then(function (res) {
+        console.log(res);
+        location.reload();
+    })
+    x();
+    //location.reload();
 }

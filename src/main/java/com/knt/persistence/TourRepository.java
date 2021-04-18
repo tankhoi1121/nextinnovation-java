@@ -27,5 +27,7 @@ public interface TourRepository {
 
     public boolean updateTour(Tour tour);
 
+    public boolean addListTourDetails(List<Tourdetails> tour);
+
     public Tourdetails x(int tourId);
 }

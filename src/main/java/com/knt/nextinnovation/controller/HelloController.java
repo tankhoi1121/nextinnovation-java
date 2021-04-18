@@ -60,6 +60,13 @@ public class HelloController {
     @GetMapping("/td/{id}")
     public String tourDetail(@PathVariable int id, Model model) {
         model.addAttribute("tour", this.tourService.getTourById(id));
+
+        if (this.tourService.getTourDetailByTourId(id) != null) {
+            model.addAttribute("allTourDetailById", this.tourService.getTourDetailByTourId(id));
+        } else {
+            model.addAttribute("allTourDetailById", null);
+        }
+
         model.addAttribute("allCommentTour", this.commentTourService.getAllCommentByTourId(id));
         return "detail";
     }

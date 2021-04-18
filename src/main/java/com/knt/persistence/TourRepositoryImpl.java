@@ -144,4 +144,19 @@ public class TourRepositoryImpl implements TourRepository {
         return true;
     }
 
+    @Transactional
+    @Override
+    public boolean addListTourDetails(List<Tourdetails> tourDetails) {
+        try {
+            Session session = this.getSessionFactory.getObject().getCurrentSession();
+            for (Tourdetails tourDetail : tourDetails) {
+                session.save(tourDetail);
+            }
+//            session.save(tourDetails);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
 }

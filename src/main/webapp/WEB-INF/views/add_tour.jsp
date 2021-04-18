@@ -88,8 +88,11 @@
                             <input type="submit" value="Add"/>
                         </div>
                     </form:form>
+
                 </div>
-                <div class="col"></div>
+                <div class="col">
+                    <a href="<c:url value= "/admin/add_tour_detail"/>" class="btn btn-primary">Detail</a>
+                </div>
             </div>
         </div>
     </body>
