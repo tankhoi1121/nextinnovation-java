@@ -56,7 +56,7 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class ="col"><label>Mã tour:</label></div>
-                                    <div class ="col"><label>${tour.id}</label></div>
+                                    <div class ="col"><label id="tourId">${tour.id}</label></div>
                                 </div>
                             </li>
                             <li class="list-group-item">
@@ -92,13 +92,6 @@
                     <div class="col-lg-10" data-spy="scroll" data-target="#list-example" data-offset="0">
                         <h4 id="list-item-1">Lịch trình</h4>
                         <p>${tour.summarySchedule}</p>
-                        
-                        <h4 id="list-item-2">X</h4>
-
-                        <h4 id="list-item-3">X</h4>
-
-                        <h4 id="list-item-4">X</h4>
-
                         <h4 id="list-item-5">Bình luận</h4>
                         <div class="row">
                             <div class = "col">
@@ -109,28 +102,28 @@
                                     <li class="list-group-item">Porta ac consectetur ac</li>
                                     <li class="list-group-item">Vestibulum at eros</li>
                                 </ul>
-                                <form class="form-inline">
+                                <div  class="form-inline">
                                     <div class ="form-control">
-                                        <textarea id="w3review" name="w3review" rows="4" cols="80" maxlength="1000">
+                                        <textarea id ="content" name="w3review" rows="4" cols="80" maxlength="1000" placeholder="we always appreciate your opinions about our product">
                                         </textarea>
                                     </div>
                                     <div class="form-control">
-                                        <a class="btn btn-primary" href="#">Send</a>
+                                        <input type="text" id="commentor" placeholder="Please input your name"/>
                                     </div>
-
-                                </form>
+                                    <div class="form-control">
+                                        <input type="button" class="btn btn--primary" onclick ="addComment(getDataComment())" value="Send"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 list-group">
-                        <a class="list-group-item list-group-item-action" href="#list-item-1">Lịch trình</a>
-                        <a class="list-group-item list-group-item-action" href="#list-item-2">Item2</a>
-                        <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
-                        <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
+                        <a class="list-group-item list-group-item-action" href="#list-item-1">Lịch trình</a>                       
                         <a class="list-group-item list-group-item-action" href="#list-item-5">Bình luận</a>
                     </div>
                 </div>
             </div>
         </div>
+        <script src="<c:url value ="/resources/js/main.js"/>"></script>
     </body>
 </html>

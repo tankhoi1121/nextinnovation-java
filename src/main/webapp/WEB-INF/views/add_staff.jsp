@@ -16,41 +16,85 @@
         <script src="<c:url value="/resources/js/bootstrap.bundle.min.js"/>"></script>
     </head>
     <body>   
-        <form:form method="POST" action ="/nextinnovation/admin/add_staff" modelAttribute="staff">
+        <form:form method="POST" action ="/nextinnovation/admin/add_staff" modelAttribute="staff" accept-charset="utf-8">
             <!<!-- Name -->
             <div class="mb-3">
-                <label for="nameInput" class="form-label">Name</label>
+                <div class="row">
+                    <div class="col">
+                        <label for="nameInput" class="form-label">Name</label>
+                    </div>
+                    <div class="col">
+                        <form:errors path="name" cssClass="text-danger"/>
+                    </div>
+                </div>
                 <input name="name" type="text" class="form-control"/>
             </div>
             <!<!-- Address -->
             <div class="mb-3">
-                <label for="addressInput" class ="form-label">Address</label>
+                <div class="row">
+                    <div class="col">
+                        <label for="addressInput" class ="form-label">Address</label>
+                    </div>
+                    <div class="col">
+                        <form:errors path="address" cssClass="text-danger"/>
+                    </div>
+                </div>
                 <input name="address" type="text" class="form-control"/>
             </div>
             <!<!-- Phone -->
             <div class = "mb-3">
-                <label for="phoneInput" class="form-label">Phone</label>
+                <div class="row">
+                    <div class="col">
+                        <label for="phoneInput" class="form-label">Phone</label>
+                    </div>
+                    <div class="col">
+                        <form:errors path="phone" cssClass="text-danger"/>
+                    </div>
+                </div>
+
                 <input name = "phone" type="text" class="form-control"/>
             </div>
             <!<!-- Email -->
             <div class = "mb-3">
-                <label for="emailInput" class="form-label">Email</label>
+                <div class="row">
+                    <div class="col">
+                        <label for="emailInput" class="form-label">Email</label>
+                    </div>
+                    <div class="col">
+                        <form:errors path="email" cssClass="text-danger"/>
+                    </div>
+                </div>
+
                 <input name="email" type="text" class="form-control"/>
             </div>
             <!<!-- Department -->            
             <div class = "mb-3">
-                <label for="departmentInput" class="form-label">Department</label>
+                <div class="row">
+                    <div class="col">
+                        <label for="departmentInput" class="form-label">Department</label>
+                    </div>
+                    <div class="col">
+                        <form:errors path="department" cssClass="text-danger"/>
+                    </div>
+                </div>                
                 <input name="department" type="text" class="form-control"/>
             </div>
             <!<!-- Role -->
             <div class = "mb-3">
-                <label for="roleInput" class ="form-label">Role</label>
+                <div class="row">
+                    <div class="col">
+                        <label for="roleInput" class ="form-label">Role</label>
+                    </div>
+                    <div class="col">
+                        <form:errors path="role" cssClass="text-danger"/>
+                    </div>
+                </div>
                 <input name="role" type="text" class="form-control"/>
             </div>
             <div class="mb-3">
                 <input type="submit" value="Add"/>
             </div>
         </form:form>
-            <p>${message}</p>   
+        <p>${message}</p>   
     </body>
 </html>

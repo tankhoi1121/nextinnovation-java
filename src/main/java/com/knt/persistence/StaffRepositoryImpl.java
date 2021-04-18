@@ -36,9 +36,9 @@ public class StaffRepositoryImpl implements StaffRepository {
         try {
             Session session = this.getSessionFactory.getObject().getCurrentSession();
             Transaction tx;
-            tx = (Transaction) session.beginTransaction();
+            //tx = (Transaction) session.beginTransaction();
             session.save(staff);
-            tx.commit();
+            //tx.commit();
 
         } catch (Exception e) {
             return false;
@@ -56,7 +56,6 @@ public class StaffRepositoryImpl implements StaffRepository {
             CriteriaUpdate<Staff> cu = cb.createCriteriaUpdate(Staff.class);
             Root<Staff> root = cu.from(Staff.class);
             Staff _stafflocal = this.getStaffById(staffId);
-
 
             if (!_stafflocal.equals(staff)) {
                 cu.set("name", staff.getName());

@@ -18,9 +18,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TourServiceImpl implements TourService {
+
     @Autowired
     private TourRepository tourRepository;
-    
+
     @Override
     public Tour getTourById(int id) {
         return tourRepository.getTourById(id);
@@ -45,5 +46,29 @@ public class TourServiceImpl implements TourService {
     public Tour getTourBySeason(String season) {
         return this.tourRepository.getTourBySeason(season);
     }
-    
+
+    @Override
+    public boolean addTour(Tour tour) {
+        try {
+            if (!this.tourRepository.addTour(tour)) {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateTour(Tour tour) {
+        try {
+            if (!this.tourRepository.updateTour(tour)) {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
 }

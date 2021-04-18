@@ -37,26 +37,31 @@ public class Tour implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "is Required")
     @Column(name = "id")
     private Integer id;
     @Lob
     @Size(max = 65535)
+    @NotNull(message = "is Required")
     @Column(name = "_name")
     private String name;
     @Size(max = 255)
+    @NotNull(message = "is Required")
     @Column(name = "season")
     private String season;
     @Lob
     @Size(max = 65535)
+    @NotNull(message = "is Required")
     @Column(name = "SummarySchedule")
     private String summarySchedule;
     @Lob
     @Size(max = 65535)
+    @NotNull(message = "is Required")
     @Column(name = "ConditionRemoveTour")
     private String conditionRemoveTour;
     @Lob
     @Size(max = 65535)
+    @NotNull(message = "is Required")
     @Column(name = "ServiceIncludeAndNotInclude")
     private String serviceIncludeAndNotInclude;
     @OneToMany(mappedBy = "tourId")
@@ -216,5 +221,5 @@ public class Tour implements Serializable {
     public String toString() {
         return "com.knt.pojo.Tour[ id=" + id + " ]";
     }
-    
+
 }

@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class HelloController {
+
     @Autowired
     private TourService tourService;
-    
+
     @GetMapping("/hello")
     public String hello(Model model) {
 
@@ -22,11 +23,11 @@ public class HelloController {
 
         return "welcome";
     }
-    
+
     @GetMapping("/tour/season/{id}")
-    public String getTourBySeason(@PathVariable int id, Model model){
+    public String getTourBySeason(@PathVariable int id, Model model) {
         String season = "";
-        switch(id){
+        switch (id) {
             case 1:
                 season = "xuân";
                 break;
@@ -34,7 +35,7 @@ public class HelloController {
                 season = "hạ";
                 break;
             case 3:
-                season ="thu";
+                season = "thu";
                 break;
             case 4:
                 season = "đông";
@@ -42,38 +43,39 @@ public class HelloController {
             default:
                 break;
         }
-        
-        if(!season.isEmpty()){
+
+        if (!season.isEmpty()) {
             model.addAttribute("info", this.tourService.getTourBySeason(season));
-        }else{
+        } else {
             model.addAttribute("info", "");
         }
-        
+
         return "season";
     }
-    
-    
+
     @GetMapping("/detail")
-    public String tourDetail(Model model){
+    public String tourDetail(Model model) {
         model.addAttribute("tour", this.tourService.getTourById(15212));
         return "detail";
     }
-    
+
     @GetMapping("/order")
-    public String orderTour(){
+    public String orderTour() {
         return "order";
-    }   
+    }
+
     @GetMapping("/test")
-    public String test(Model model){
-        Object[] x =  this.tourService.getTourDetailByTourId(15192).toArray();
-        model.addAttribute("test", x[0]);      
-        
+    public String test(Model model) {
+        Object[] x = this.tourService.getTourDetailByTourId(15192).toArray();
+        model.addAttribute("test", x[0]);
+
         return "test";
     }
-    
+
     @GetMapping("/x")
-    public String x (Model model){
+    public String x(Model model) {
         model.addAttribute("x", this.tourService.x(15212));
         return "x";
     }
-}
+
+}//End Class

@@ -14,9 +14,18 @@ import java.util.List;
  * @author NguyenTan.Khoi
  */
 public interface TourService {
+
     public Tour getTourById(int id);
+
     public List<Tour> getAllTour();
+
     public Tour getTourBySeason(String season);
+
     public List<Tourdetails> getTourDetailByTourId(int tourId);
-    public Tourdetails x (int tourId);
+
+    public Tourdetails x(int tourId);
+
+    public boolean addTour(Tour tour);
+
+    public boolean updateTour(Tour tour);
 }

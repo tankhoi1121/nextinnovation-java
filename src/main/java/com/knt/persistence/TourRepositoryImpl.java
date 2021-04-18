@@ -5,7 +5,6 @@
  */
 package com.knt.persistence;
 
-
 import com.knt.pojo.Tour;
 import com.knt.pojo.Tour_;
 import com.knt.pojo.Tourdetails;
@@ -30,6 +29,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.hibernate.Session;
+
 /**
  *
  * @author NguyenTan.Khoi
@@ -37,34 +37,34 @@ import org.hibernate.Session;
 @Repository
 
 public class TourRepositoryImpl implements TourRepository {
-    
+
     @Autowired
     private LocalSessionFactoryBean getSessionFactory;
-    
+
     @Transactional
     @Override
     public Tour getTourById(int id) {
         Session session = this.getSessionFactory.getObject().getCurrentSession();
-        
+
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Tour> cq = cb.createQuery(Tour.class);
-        
+
         Root<Tour> tour = cq.from(Tour.class);
         Predicate filterTourById = cb.equal(tour.get("id"), id);
         cq.where(filterTourById);
-        
+
         TypedQuery<Tour> query = session.createQuery(cq);
         return query.getSingleResult();
     }
-    
+
     @Transactional
     @Override
     public List<Tourdetails> getTourDetailByTourId(int tourId) {
-        Session session = this.getSessionFactory.getObject().getCurrentSession();        
+        Session session = this.getSessionFactory.getObject().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery cq = criteriaBuilder.createQuery();
         Root<Tour> root = cq.from(Tour.class);
-        CollectionJoin<Tour,Tourdetails> detail = root.join(Tour_.tourdetailsCollection);
+        CollectionJoin<Tour, Tourdetails> detail = root.join(Tour_.tourdetailsCollection);
         cq.multiselect(detail.get(Tourdetails_.header), detail.get(Tourdetails_.description)).where(criteriaBuilder.equal(detail.get(Tourdetails_.tourId), tourId));
         TypedQuery<Tourdetails> q = session.createQuery(cq);
         List<Tourdetails> res = q.getResultList();
@@ -112,9 +112,9 @@ public class TourRepositoryImpl implements TourRepository {
     public boolean addTour(Tour tour) {
         try {
             Session session = this.getSessionFactory.getObject().getCurrentSession();
-            Transaction tx;
-            tx = (Transaction) session.beginTransaction();
+
             session.save(tour);
+
         } catch (Exception e) {
             return false;
         }
@@ -123,29 +123,25 @@ public class TourRepositoryImpl implements TourRepository {
 
     @Transactional
     @Override
-    public boolean updateTour(int tourId, Tour tour) {
+    public boolean updateTour(Tour tour) {
         try {
             Session session = this.getSessionFactory.getObject().getCurrentSession();
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaUpdate<Tour> cu = cb.createCriteriaUpdate(Tour.class);
             Root<Tour> root = cu.from(Tour.class);
-            Tour _tourlocal = this.getTourById(tourId);
-            
-            if(!_tourlocal.equals(tour)){
-                cu.set("id", tour.getId());
-                cu.set("name", tour.getName());
-                cu.set("season", tour.getSeason());
-                cu.set("summarySchedule", tour.getSummarySchedule());
-                cu.set("conditionRemoveTour", tour.getConditionRemoveTour());
-                cu.set("serviceIncludeAndNotInclude", tour.getServiceIncludeAndNotInclude());
-            }else{
-                return false;
-            }
-            
+
+            cu.set("name", tour.getName());
+            cu.set("season", tour.getSeason());
+            cu.set("summarySchedule", tour.getSummarySchedule());
+            cu.set("conditionRemoveTour", tour.getConditionRemoveTour());
+            cu.set("serviceIncludeAndNotInclude", tour.getServiceIncludeAndNotInclude());
+            cu.where(cb.equal(root.get(Tour_.id), tour.getId()));
+            session.createQuery(cu).executeUpdate();
+
         } catch (Exception e) {
             return false;
         }
         return true;
     }
-    
+
 }
