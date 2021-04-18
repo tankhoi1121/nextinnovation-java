@@ -95,13 +95,19 @@
                         <h4 id="list-item-5">Bình luận</h4>
                         <div class="row">
                             <div class = "col">
-                                <ul class="list-group">
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
-                                </ul>
+                                <div class="form-inline">
+                                    <c:forEach items="${allCommentTour}" var= "item">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label class="form-label text-primary">${item.commentator}</label>                                               
+                                            </div>
+                                            <div class="col-md-10">
+                                                <label class="form-label">${item.content}</label>
+
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
                                 <div  class="form-inline">
                                     <div class ="form-control">
                                         <textarea id ="content" name="w3review" rows="4" cols="80" maxlength="1000" placeholder="we always appreciate your opinions about our product">

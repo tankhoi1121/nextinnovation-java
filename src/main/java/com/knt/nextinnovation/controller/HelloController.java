@@ -1,6 +1,7 @@
 package com.knt.nextinnovation.controller;
 
 import com.knt.pojo.Tourdetails;
+import com.knt.service.CommentTourService;
 import com.knt.service.TourService;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,9 @@ public class HelloController {
 
     @Autowired
     private TourService tourService;
+
+    @Autowired
+    private CommentTourService commentTourService;
 
     @GetMapping("/hello")
     public String hello(Model model) {
@@ -56,6 +60,7 @@ public class HelloController {
     @GetMapping("/td/{id}")
     public String tourDetail(@PathVariable int id, Model model) {
         model.addAttribute("tour", this.tourService.getTourById(id));
+        model.addAttribute("allCommentTour", this.commentTourService.getAllCommentByTourId(id));
         return "detail";
     }
 
