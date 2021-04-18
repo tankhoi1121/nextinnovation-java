@@ -111,7 +111,7 @@
                                         <input type="text" id="commentor" placeholder="Please input your name"/>
                                     </div>
                                     <div class="form-control">
-                                        <input type="button" class="btn btn--primary" onclick ="addComment(getDataComment())" value="Send"/>
+                                        <input type="button" class="btn btn--primary" onclick ="addComment()" value="Send"/>
                                     </div>
                                 </div>
                             </div>

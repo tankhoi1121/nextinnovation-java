@@ -53,9 +53,9 @@ public class HelloController {
         return "season";
     }
 
-    @GetMapping("/detail")
-    public String tourDetail(Model model) {
-        model.addAttribute("tour", this.tourService.getTourById(15212));
+    @GetMapping("/td/{id}")
+    public String tourDetail(@PathVariable int id, Model model) {
+        model.addAttribute("tour", this.tourService.getTourById(id));
         return "detail";
     }
 

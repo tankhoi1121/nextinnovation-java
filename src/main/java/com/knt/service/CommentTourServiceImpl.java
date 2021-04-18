@@ -23,7 +23,13 @@ public class CommentTourServiceImpl implements CommentTourService {
 
     @Override
     public boolean addComment(Commenttour ct) {
-        return false;
+        try {
+            this.commentTourRepository.addComment(ct);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+
     }
 
     @Override

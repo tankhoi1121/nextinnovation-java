@@ -5,11 +5,13 @@
  */
 package com.knt.nextinnovation.controller;
 
+import com.knt.pojo.Commenttour;
 import com.knt.pojo.Staff;
 import com.knt.pojo.Tour;
 import com.knt.service.CommentTourService;
 import com.knt.service.StaffService;
 import com.knt.service.TourService;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,8 +25,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -140,4 +145,11 @@ public class SecurityController {
         return "individual_tour";
     }
 
+    @PostMapping("/add_comment_tour")
+    public @ResponseBody
+    Commenttour addCommentTour(@RequestBody Commenttour ct) {
+        this.commentTourService.addComment(ct);
+        Commenttour commenttour = new Commenttour();
+        return commenttour;
+    }
 }// End Class

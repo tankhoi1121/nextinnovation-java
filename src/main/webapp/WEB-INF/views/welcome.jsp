@@ -69,7 +69,7 @@
                                             </div>                                        
                                         </div>
                                     </div>
-                                    <a href="<c:url value="/detail"/>" class="btn btn-primary">Chi tiết</a>
+                                    <a href="<c:url value="/td/${item.id}"/>" class="btn btn-primary">Chi tiết</a>
                                 </div>
                             </div>
                         </div>
