@@ -6,10 +6,12 @@
 package com.knt.nextinnovation.controller;
 
 import com.knt.pojo.Commenttour;
+import com.knt.pojo.News;
 import com.knt.pojo.Staff;
 import com.knt.pojo.Tour;
 import com.knt.pojo.Tourdetails;
 import com.knt.service.CommentTourService;
+import com.knt.service.NewsService;
 import com.knt.service.StaffService;
 import com.knt.service.TourService;
 import java.util.List;
@@ -49,6 +51,9 @@ public class SecurityController {
 
     @Autowired
     private CommentTourService commentTourService;
+
+    @Autowired
+    private NewsService newsService;
 
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {
@@ -167,4 +172,38 @@ public class SecurityController {
         return tourDetails;
     }
 
+    @GetMapping("/add_news")
+    public String addNews() {
+        return "add_news";
+    }
+
+    @PostMapping("/add_news")
+    public String addNewsExe(@ModelAttribute("news") News news, Model model) {
+        this.newsService.addNews(news);
+        return "add_news";
+    }
+
+    @GetMapping("/edit_news/{id}")
+    public String editNews(@PathVariable int id, Model model) {
+        model.addAttribute("newsId", id);
+        return "edit_news";
+    }
+
+    @PostMapping("/edit_news/{id}")
+    public String editNewsExe(@PathVariable int id, @ModelAttribute("news") News news, Model model) {
+        model.addAttribute("newsId", id);
+        this.newsService.editNews(news);
+        return "edit_news";
+    }
+
+    @GetMapping("/delete_news")
+    public String deleteNews(int newsId) {
+        return "confirm_news";
+    }
+
+    @GetMapping("all_news")
+    public String getAllNews(Model model) {
+        model.addAttribute("allnews", this.newsService.getAllNews());
+        return "all_news";
+    }
 }// End Class

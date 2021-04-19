@@ -103,5 +103,5 @@ public class News implements Serializable {
     public String toString() {
         return "com.knt.pojo.News[ id=" + id + " ]";
     }
-    
+
 }

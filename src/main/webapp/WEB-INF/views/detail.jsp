@@ -92,13 +92,15 @@
                     <div class="col-lg-10" data-spy="scroll" data-target="#list-example" data-offset="0">
                         <h4 id="list-item-1">Lịch trình</h4>
                         <p>${tour.summarySchedule}</p>
-
-                        <c:forEach items="allTourDetailById" var = "X">
-                            <ul class="list-group">
-                                <li class="list-group-item">${X.header}</li>
-                                <li class="list-group-item">${X.description}</li>
-                            </ul>
-                        </c:forEach>
+                        <table>
+                            <c:forEach items="${ok}" var="item">
+                                <c:forEach items="${item}" var="cv">
+                                    <tr>
+                                        <td><c:out value="${cv}"/></td>                                    
+                                    </tr>
+                                </c:forEach>
+                            </c:forEach>
+                        </table>
 
                         <h4 id="list-item-5">Bình luận</h4>
                         <div class="row">

@@ -2,6 +2,7 @@ package com.knt.nextinnovation.controller;
 
 import com.knt.pojo.Tourdetails;
 import com.knt.service.CommentTourService;
+import com.knt.service.NewsService;
 import com.knt.service.TourService;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,9 @@ public class HelloController {
 
     @Autowired
     private TourService tourService;
+
+    @Autowired
+    private NewsService newsService;
 
     @Autowired
     private CommentTourService commentTourService;
@@ -61,11 +65,7 @@ public class HelloController {
     public String tourDetail(@PathVariable int id, Model model) {
         model.addAttribute("tour", this.tourService.getTourById(id));
 
-        if (this.tourService.getTourDetailByTourId(id) != null) {
-            model.addAttribute("allTourDetailById", this.tourService.getTourDetailByTourId(id));
-        } else {
-            model.addAttribute("allTourDetailById", null);
-        }
+        model.addAttribute("ok", this.tourService.getTourDetailByTourId(id));
 
         model.addAttribute("allCommentTour", this.commentTourService.getAllCommentByTourId(id));
         return "detail";
@@ -88,6 +88,18 @@ public class HelloController {
     public String x(Model model) {
         model.addAttribute("x", this.tourService.x(15212));
         return "x";
+    }
+
+    @GetMapping("all_news")
+    public String getAllNews(Model model) {
+        model.addAttribute("allnews", this.newsService.getAllNews());
+        return "all_news_1";
+    }
+
+    @GetMapping("/news_detail/{id}")
+    public String newsDetail(@PathVariable int id, Model model) {
+        model.addAttribute("news", this.newsService.getNewsBytId(id));
+        return "news_detail";
     }
 
 }//End Class

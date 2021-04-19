@@ -39,9 +39,12 @@ function addComment() {
         headers: {"Content-type": "application/json;charset=UTF-8"},
         body: JSON.stringify(tour),
     }).then(function (res) {
-        console.log(res);
+        return res.json();
+
+    }).then(data => {
+        console.log(data);
         location.reload();
-    })
+    });
 }
 
 function getValue() {
@@ -57,7 +60,7 @@ function getValue() {
     var td = {
         tourId: getEle.tourId.value,
         header: getEle.header.value,
-        description: getEle.header.value
+        description: getEle.description.value
     }
 
 
@@ -86,13 +89,15 @@ function x() {
 }
 
 async function sendListTourDetail(listTD) {
+
     fetch("/nextinnovation/admin/add_tour_detail", {
         method: "POST",
         headers: {"Content-type": "application/json;charset=UTF-8"},
         body: JSON.stringify(listTD),
     }).then(function (res) {
-        console.log(res);
-        location.reload();
+        return res.json();
+    }).then(data => {
+        console.log(data);
     })
     x();
     //location.reload();
