@@ -15,34 +15,8 @@
         <script src="<c:url value="/resources/js/bootstrap.bundle.min.js"/>"></script>
     </head>
     <body style="background-image: url('<c:url value="/resources/image/2431841.jpg"/>')">
-        <div class="container-fluid" >            
-            <div class = "row">
-                <div class ="col-lg-4"></div>
-                <div class="col-lg-4">
-                    <form>
-                        <div class="mb-3">
-                            <label for="customerName" class="form-label text-light">Họ và tên</label>
-                            <input type="text" class="form-control" id="customerName" name ="name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="customerAddress" class="form-label text-light">Địa chỉ</label>
-                            <input type="text" class="form-control" id="customerAddress" name ="address">
-                        </div>
-                        <div class="mb-3">
-                            <label for="customerPhone" class="form-label text-light">Địa chỉ</label>
-                            <input type="text" class="form-control" id="customerPhone" name ="phone">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label text-light">Email</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
-                            <div id="emailHelp" class="form-text">Chúng tôi sẽ giữ email của bạn riêng tư</div>
-                        </div>                            
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-                <div class ="col-lg-4"></div>
-            </div>
-        </div>
 
-    </body>
+    </div>
+
+</body>
 </html>

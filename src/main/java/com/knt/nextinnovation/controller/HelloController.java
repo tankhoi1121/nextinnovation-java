@@ -3,6 +3,7 @@ package com.knt.nextinnovation.controller;
 import com.knt.pojo.Tourdetails;
 import com.knt.service.CommentTourService;
 import com.knt.service.NewsService;
+import com.knt.service.ProductService;
 import com.knt.service.TourService;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,9 @@ public class HelloController {
 
     @Autowired
     private TourService tourService;
+
+    @Autowired
+    private ProductService productService;
 
     @Autowired
     private NewsService newsService;
@@ -66,6 +70,8 @@ public class HelloController {
         model.addAttribute("tour", this.tourService.getTourById(id));
 
         model.addAttribute("ok", this.tourService.getTourDetailByTourId(id));
+
+        model.addAttribute("product", this.productService.getProductById(id));
 
         model.addAttribute("allCommentTour", this.commentTourService.getAllCommentByTourId(id));
         return "detail";

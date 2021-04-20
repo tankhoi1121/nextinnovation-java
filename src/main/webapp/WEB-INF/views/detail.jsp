@@ -83,6 +83,12 @@
                                     <div class ="col"><label>Call</label></div>
                                 </div>
                             </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class ="col"><label>Giá tour:</label></div>
+                                    <div class ="col"><label>${product.priceForAdult}</label></div>
+                                </div>
+                            </li>
                         </ul>                        
                     </div>
                 </div>

@@ -7,6 +7,7 @@ package com.knt.nextinnovation.controller;
 
 import com.knt.pojo.Commenttour;
 import com.knt.pojo.News;
+import com.knt.pojo.Product;
 import com.knt.pojo.Staff;
 import com.knt.pojo.Tour;
 import com.knt.pojo.Tourdetails;
@@ -205,5 +206,15 @@ public class SecurityController {
     public String getAllNews(Model model) {
         model.addAttribute("allnews", this.newsService.getAllNews());
         return "all_news";
+    }
+
+    @GetMapping("add_product")
+    public String addProductUI(Model model) {
+        return "add_product";
+    }
+
+    @PostMapping("add_product")
+    public String addProductExec(@ModelAttribute("product") Product p, Model model) {
+        return "add_product";
     }
 }// End Class
