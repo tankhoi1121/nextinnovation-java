@@ -99,5 +99,5 @@ public class TourPlace implements Serializable {
     public String toString() {
         return "com.knt.pojo.TourPlace[ id=" + id + " ]";
     }
-    
+
 }

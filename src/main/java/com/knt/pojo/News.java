@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -31,7 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "News.findAll", query = "SELECT n FROM News n"),
-    @NamedQuery(name = "News.findById", query = "SELECT n FROM News n WHERE n.id = :id")})
+    @NamedQuery(name = "News.findById", query = "SELECT n FROM News n WHERE n.id = :id"),
+    @NamedQuery(name = "News.findByStatus", query = "SELECT n FROM News n WHERE n.status = :status")})
 public class News implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,6 +46,8 @@ public class News implements Serializable {
     @Size(max = 65535)
     @Column(name = "content")
     private String content;
+    @Column(name = "Status")
+    private Integer status;
     @OneToMany(mappedBy = "newsId")
     private Collection<Commentnews> commentnewsCollection;
 
@@ -70,7 +74,16 @@ public class News implements Serializable {
         this.content = content;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @XmlTransient
+    @JsonIgnore
     public Collection<Commentnews> getCommentnewsCollection() {
         return commentnewsCollection;
     }

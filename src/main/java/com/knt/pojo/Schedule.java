@@ -115,5 +115,5 @@ public class Schedule implements Serializable {
     public String toString() {
         return "com.knt.pojo.Schedule[ id=" + id + " ]";
     }
-    
+
 }

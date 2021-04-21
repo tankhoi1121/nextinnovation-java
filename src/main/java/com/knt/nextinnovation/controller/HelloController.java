@@ -1,26 +1,43 @@
 package com.knt.nextinnovation.controller;
 
+import com.knt.pojo.Customer;
+import com.knt.pojo.Product;
+import com.knt.pojo.ProductCustomer;
 import com.knt.pojo.Tourdetails;
 import com.knt.service.CommentTourService;
+import com.knt.service.CustomerService;
 import com.knt.service.NewsService;
+import com.knt.service.ProductCustomerService;
 import com.knt.service.ProductService;
 import com.knt.service.TourService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HelloController {
+
+    @Autowired
+    private CustomerService customerService;
 
     @Autowired
     private TourService tourService;
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ProductCustomerService productCustomerService;
 
     @Autowired
     private NewsService newsService;
@@ -77,9 +94,41 @@ public class HelloController {
         return "detail";
     }
 
-    @GetMapping("/order")
-    public String orderTour() {
+    @GetMapping("/order/{id}")
+    public String orderTour(@PathVariable int id, Model model) {
+        model.addAttribute("product", this.productService.getProductById(id));
         return "order";
+    }
+
+    @PostMapping("/order_confirm")
+    public @ResponseBody
+    Product OrderExec(@RequestBody Object[] list) {
+        JSONObject obj = new JSONObject(list[0].toString());
+
+        Customer cust = new Customer();
+        cust.setName(obj.getString("name"));
+        cust.setAddress(obj.getString("address"));
+        cust.setPhone(obj.getString("phone"));
+        cust.setEmail(obj.getString("email"));
+
+        this.customerService.addCustomer(cust);
+        Customer tempCust = this.customerService.getCustomerByEmail(cust.getEmail());
+        JSONObject obj_1 = new JSONObject(list[1].toString());
+        Product p = this.productService.getProductById(Integer.parseInt(obj_1.getString("tourId")));
+
+        ProductCustomer pc = new ProductCustomer();
+
+        pc.setProductId(p);
+        pc.setCustomerId(tempCust);
+        JSONObject obj_2 = new JSONObject(list[2].toString());
+        pc.setQty(Integer.parseInt(obj_2.getString("qty")));
+        pc.setConfirmStatus("OK");
+        pc.setInputDate(new Date());
+        if (!this.productCustomerService.addPC(pc)) {
+            return null;
+        }
+        return p;
+//        return null;
     }
 
     @GetMapping("/test")

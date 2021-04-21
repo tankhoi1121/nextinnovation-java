@@ -126,5 +126,5 @@ public class Commenttour implements Serializable {
     public String toString() {
         return "com.knt.pojo.Commenttour[ id=" + id + " ]";
     }
-    
+
 }

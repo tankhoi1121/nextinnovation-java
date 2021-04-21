@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -94,6 +95,7 @@ public class Place implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public Collection<TourPlace> getTourPlaceCollection() {
         return tourPlaceCollection;
     }
@@ -126,5 +128,5 @@ public class Place implements Serializable {
     public String toString() {
         return "com.knt.pojo.Place[ id=" + id + " ]";
     }
-    
+
 }

@@ -102,5 +102,5 @@ public class Commentnews implements Serializable {
     public String toString() {
         return "com.knt.pojo.Commentnews[ id=" + id + " ]";
     }
-    
+
 }

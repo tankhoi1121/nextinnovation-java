@@ -5,7 +5,6 @@
  */
 package com.knt.pojo;
 
-//import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -19,13 +18,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -47,34 +43,28 @@ public class Staff implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Lob
-    @Size(max = 65535, message = "oversize is allowed (max = 65535)")
-    @NotEmpty(message = "is Required")
+    @Size(max = 65535)
     @Column(name = "_name")
     private String name;
     @Lob
-    @Size(max = 65535, message = "oversize is allowed (max = 65535)")
-    @NotEmpty(message = "is Required")
+    @Size(max = 65535)
     @Column(name = "address")
     private String address;
-    @Pattern(regexp = "^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message = "Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Size(max = 50, message = "oversize is allowed (max = 50)")
+    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
+    @Size(max = 50)
     @Column(name = "phone")
     private String phone;
-
-    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Lob
-    @Size(max = 65535, message = "oversize is allowed (max = 65535)")
-    @NotEmpty(message = "is Required")
+    @Size(max = 65535)
     @Column(name = "email")
     private String email;
     @Lob
-    @Size(max = 65535, message = "oversize is allowed (max = 65535)")
-    @NotEmpty(message = "is Required")
+    @Size(max = 65535)
     @Column(name = "department")
     private String department;
     @Lob
-    @Size(max = 65535, message = "oversize is allowed (max = 65535)")
-    @NotEmpty(message = "is Required")
+    @Size(max = 65535)
     @Column(name = "_role")
     private String role;
     @OneToMany(mappedBy = "staffId")
@@ -144,6 +134,7 @@ public class Staff implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public Collection<TourStaff> getTourStaffCollection() {
         return tourStaffCollection;
     }

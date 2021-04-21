@@ -217,4 +217,10 @@ public class SecurityController {
     public String addProductExec(@ModelAttribute("product") Product p, Model model) {
         return "add_product";
     }
+
+    @GetMapping("statistics_revenue")
+    public String StatisticsRevenue() {
+        return "statistics_revenue";
+    }
+
 }// End Class

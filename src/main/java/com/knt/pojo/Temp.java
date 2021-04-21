@@ -108,5 +108,5 @@ public class Temp implements Serializable {
     public String toString() {
         return "com.knt.pojo.Temp[ id=" + id + " ]";
     }
-    
+
 }

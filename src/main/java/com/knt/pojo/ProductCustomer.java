@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ProductCustomer.findById", query = "SELECT p FROM ProductCustomer p WHERE p.id = :id"),
     @NamedQuery(name = "ProductCustomer.findByQty", query = "SELECT p FROM ProductCustomer p WHERE p.qty = :qty"),
     @NamedQuery(name = "ProductCustomer.findByConfirmStatus", query = "SELECT p FROM ProductCustomer p WHERE p.confirmStatus = :confirmStatus"),
-    @NamedQuery(name = "ProductCustomer.findByInputDate", query = "SELECT p FROM ProductCustomer p WHERE p.inputDate = :inputDate")})
+    @NamedQuery(name = "ProductCustomer.findByInputDate", query = "SELECT p FROM ProductCustomer p WHERE p.inputDate = :inputDate"),
+    @NamedQuery(name = "ProductCustomer.findByStatus", query = "SELECT p FROM ProductCustomer p WHERE p.status = :status")})
 public class ProductCustomer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,6 +53,8 @@ public class ProductCustomer implements Serializable {
     @Column(name = "InputDate")
     @Temporal(TemporalType.DATE)
     private Date inputDate;
+    @Column(name = "Status")
+    private Integer status;
     @JoinColumn(name = "CustomerId", referencedColumnName = "id")
     @ManyToOne
     private Customer customerId;
@@ -98,6 +101,14 @@ public class ProductCustomer implements Serializable {
         this.inputDate = inputDate;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public Customer getCustomerId() {
         return customerId;
     }
@@ -138,5 +149,5 @@ public class ProductCustomer implements Serializable {
     public String toString() {
         return "com.knt.pojo.ProductCustomer[ id=" + id + " ]";
     }
-    
+
 }

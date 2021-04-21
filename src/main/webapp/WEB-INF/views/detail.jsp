@@ -89,6 +89,13 @@
                                     <div class ="col"><label>${product.priceForAdult}</label></div>
                                 </div>
                             </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class ="col">
+                                        <a href="<c:url value="/order/${tour.id}"/>">Đặt tour</a>
+                                    </div>                                    
+                                </div>
+                            </li>
                         </ul>                        
                     </div>
                 </div>

@@ -114,5 +114,5 @@ public class Tourdetails implements Serializable {
     public String toString() {
         return "com.knt.pojo.Tourdetails[ id=" + id + " ]";
     }
-    
+
 }

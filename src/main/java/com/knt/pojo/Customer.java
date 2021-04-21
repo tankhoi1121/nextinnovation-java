@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -33,7 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
     @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id"),
     @NamedQuery(name = "Customer.findByPhone", query = "SELECT c FROM Customer c WHERE c.phone = :phone"),
-    @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")})
+    @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email"),
+    @NamedQuery(name = "Customer.findByStatus", query = "SELECT c FROM Customer c WHERE c.status = :status")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,6 +60,8 @@ public class Customer implements Serializable {
     @Size(max = 300)
     @Column(name = "email")
     private String email;
+    @Column(name = "Status")
+    private Integer status;
     @OneToMany(mappedBy = "customerId")
     private Collection<ProductCustomer> productCustomerCollection;
 
@@ -108,7 +112,16 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @XmlTransient
+    @JsonIgnore
     public Collection<ProductCustomer> getProductCustomerCollection() {
         return productCustomerCollection;
     }
@@ -141,5 +154,5 @@ public class Customer implements Serializable {
     public String toString() {
         return "com.knt.pojo.Customer[ id=" + id + " ]";
     }
-    
+
 }

@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -31,39 +32,37 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Tour.findAll", query = "SELECT t FROM Tour t"),
     @NamedQuery(name = "Tour.findById", query = "SELECT t FROM Tour t WHERE t.id = :id"),
-    @NamedQuery(name = "Tour.findBySeason", query = "SELECT t FROM Tour t WHERE t.season = :season")})
+    @NamedQuery(name = "Tour.findBySeason", query = "SELECT t FROM Tour t WHERE t.season = :season"),
+    @NamedQuery(name = "Tour.findByStatus", query = "SELECT t FROM Tour t WHERE t.status = :status")})
 public class Tour implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull(message = "is Required")
+    @NotNull
     @Column(name = "id")
     private Integer id;
     @Lob
     @Size(max = 65535)
-    @NotNull(message = "is Required")
     @Column(name = "_name")
     private String name;
     @Size(max = 255)
-    @NotNull(message = "is Required")
     @Column(name = "season")
     private String season;
     @Lob
     @Size(max = 65535)
-    @NotNull(message = "is Required")
     @Column(name = "SummarySchedule")
     private String summarySchedule;
     @Lob
     @Size(max = 65535)
-    @NotNull(message = "is Required")
     @Column(name = "ConditionRemoveTour")
     private String conditionRemoveTour;
     @Lob
     @Size(max = 65535)
-    @NotNull(message = "is Required")
     @Column(name = "ServiceIncludeAndNotInclude")
     private String serviceIncludeAndNotInclude;
+    @Column(name = "Status")
+    private Integer status;
     @OneToMany(mappedBy = "tourId")
     private Collection<Image> imageCollection;
     @OneToMany(mappedBy = "tourId")
@@ -134,7 +133,16 @@ public class Tour implements Serializable {
         this.serviceIncludeAndNotInclude = serviceIncludeAndNotInclude;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @XmlTransient
+    @JsonIgnore
     public Collection<Image> getImageCollection() {
         return imageCollection;
     }
@@ -144,6 +152,7 @@ public class Tour implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public Collection<Commenttour> getCommenttourCollection() {
         return commenttourCollection;
     }
@@ -153,6 +162,7 @@ public class Tour implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public Collection<TourStaff> getTourStaffCollection() {
         return tourStaffCollection;
     }
@@ -162,6 +172,7 @@ public class Tour implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public Collection<TourSupplier> getTourSupplierCollection() {
         return tourSupplierCollection;
     }
@@ -171,6 +182,7 @@ public class Tour implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public Collection<Tourdetails> getTourdetailsCollection() {
         return tourdetailsCollection;
     }
@@ -180,6 +192,7 @@ public class Tour implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public Collection<TourPlace> getTourPlaceCollection() {
         return tourPlaceCollection;
     }
@@ -189,6 +202,7 @@ public class Tour implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public Collection<Schedule> getScheduleCollection() {
         return scheduleCollection;
     }

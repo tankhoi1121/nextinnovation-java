@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -32,7 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id"),
     @NamedQuery(name = "Product.findByTourId", query = "SELECT p FROM Product p WHERE p.tourId = :tourId"),
     @NamedQuery(name = "Product.findByPriceForAdult", query = "SELECT p FROM Product p WHERE p.priceForAdult = :priceForAdult"),
-    @NamedQuery(name = "Product.findByPriceForChild", query = "SELECT p FROM Product p WHERE p.priceForChild = :priceForChild")})
+    @NamedQuery(name = "Product.findByPriceForChild", query = "SELECT p FROM Product p WHERE p.priceForChild = :priceForChild"),
+    @NamedQuery(name = "Product.findByStatus", query = "SELECT p FROM Product p WHERE p.status = :status")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,13 +42,15 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    public Integer id;
     @Column(name = "TourId")
     private Integer tourId;
     @Column(name = "PriceForAdult")
     private Integer priceForAdult;
     @Column(name = "PriceForChild")
     private Integer priceForChild;
+    @Column(name = "Status")
+    private Integer status;
     @OneToMany(mappedBy = "productId")
     private Collection<ProductCustomer> productCustomerCollection;
 
@@ -89,7 +93,16 @@ public class Product implements Serializable {
         this.priceForChild = priceForChild;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @XmlTransient
+    @JsonIgnore
     public Collection<ProductCustomer> getProductCustomerCollection() {
         return productCustomerCollection;
     }
@@ -122,5 +135,5 @@ public class Product implements Serializable {
     public String toString() {
         return "com.knt.pojo.Product[ id=" + id + " ]";
     }
-    
+
 }
