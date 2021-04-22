@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
+import org.json.JSONObject;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.WebDataBinder;
@@ -233,8 +234,19 @@ public class SecurityController {
 
     @GetMapping("statistics_revenue")
     public String StatisticsRevenue() {
-        List<Object> list = this.productCustomerService.statRevenue(LocalDate.of(2021, Month.APRIL, 1), LocalDate.of(2021, Month.APRIL, 30));
+
         return "statistics_revenue";
+    }
+
+    @PostMapping("statistics_revenue")
+    public @ResponseBody
+    List<Object> StatisticsRevenueExec(@RequestBody String[] o) {
+
+        String[] fromDate = o[0].toString().split("-");
+        String[] toDate = o[1].toString().split("-");
+        List<Object> list = this.productCustomerService.statRevenue(LocalDate.of(Integer.parseInt(fromDate[0]), Integer.parseInt(fromDate[1]), Integer.parseInt(fromDate[2])), LocalDate.of(Integer.parseInt(toDate[0]), Integer.parseInt(toDate[1]), Integer.parseInt(toDate[2])));
+
+        return list;
     }
 
 }// End Class

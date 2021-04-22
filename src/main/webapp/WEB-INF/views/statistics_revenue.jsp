@@ -29,28 +29,78 @@
                     </form>
                 </div>
             </nav>
-            <canvas id="bar-chart" width="800" height="450"></canvas>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <div class="row">
+                        <div class= "col">
+                            <label>From Date</label>
+                            <input type="date" id ="fromDate" />
+                        </div>
+                        <div class= "col">
+                            <label>To Date</label>
+                            <input type="date" id ="toDate" />
+                        </div>
+                        <div class= "col">
+                            <button class="btn btn-primary" onclick="getRevenue()">Search Revenue</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <table class ="table-active">
+                        <tr>
+                            <td>Total Revenue:</td>
+                            <td id="totalRevenue"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!--            <canvas id="bar-chart" width="800" height="450"></canvas>
+                        <script>
+                            new Chart(document.getElementById("bar-chart"), {
+                                type: 'bar',
+                                data: {
+                                    labels: ["Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                                    datasets: [
+                                        {
+                                            label: "Population (millions)",
+                                            backgroundColor: ["#3e95cd"],
+                                            data: [2478, 5267, 734, 784, 433, 5000, 7455, 3334, 1547, 8744, 1111, 3649]
+                                        }
+                                    ]
+                                },
+                                options: {
+                                    legend: {display: false},
+                                    title: {
+                                        display: true,
+                                        text: 'Revenue a whole of the year'
+                                    }
+                                }
+                            })
+                        </script>-->
             <script>
-                new Chart(document.getElementById("bar-chart"), {
-                    type: 'bar',
-                    data: {
-                        labels: ["Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                        datasets: [
-                            {
-                                label: "Population (millions)",
-                                backgroundColor: ["#3e95cd"],
-                                data: [2478, 5267, 734, 784, 433, 5000, 7455, 3334, 1547, 8744, 1111, 3649]
-                            }
-                        ]
-                    },
-                    options: {
-                        legend: {display: false},
-                        title: {
-                            display: true,
-                            text: 'Revenue a whole of the year'
-                        }
-                    }
-                })
+                function  getRevenue() {
+                    var stat = {
+                        from: document.getElementById("fromDate").value,
+                        to: document.getElementById("toDate").value
+                    };
+                    var form = document.getElementById("fromDate").value;
+                    var to = document.getElementById("toDate").value;
+                    let totalRevenue = document.getElementById("totalRevenue");
+                    var list = [];
+                    list.push(form);
+                    list.push(to);
+                    fetch("/nextinnovation/admin/statistics_revenue", {
+                        method: "POST",
+                        headers: {"Content-type": "application/json;charset=UTF-8"},
+                        body: JSON.stringify(list)
+                    }).then(function (res) {
+                        return res.json();
+                    }).then(data => {
+//                        console.log(data);
+                        totalRevenue.innerHTML = data;
+                    })
+                }
             </script>
         </div>
     </body>
