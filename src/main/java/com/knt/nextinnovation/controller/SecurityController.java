@@ -13,8 +13,11 @@ import com.knt.pojo.Tour;
 import com.knt.pojo.Tourdetails;
 import com.knt.service.CommentTourService;
 import com.knt.service.NewsService;
+import com.knt.service.ProductCustomerService;
 import com.knt.service.StaffService;
 import com.knt.service.TourService;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,6 +59,9 @@ public class SecurityController {
 
     @Autowired
     private NewsService newsService;
+
+    @Autowired
+    private ProductCustomerService productCustomerService;
 
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {
@@ -140,11 +146,11 @@ public class SecurityController {
     }
 
     @GetMapping("/tour_delete/{id}")
-    public String  deleteTourById(@PathVariable int id){
+    public String deleteTourById(@PathVariable int id) {
         this.tourService.deleteTour(id);
         return "redirect:http://localhost:8080/nextinnovation/admin/update_tour";
     }
-    
+
     @PostMapping("/tour/{id}")
     public String updateTourById(@PathVariable int id, @Valid @ModelAttribute("tour") Tour tour, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -227,6 +233,7 @@ public class SecurityController {
 
     @GetMapping("statistics_revenue")
     public String StatisticsRevenue() {
+        List<Object> list = this.productCustomerService.statRevenue(LocalDate.of(2021, Month.APRIL, 1), LocalDate.of(2021, Month.APRIL, 30));
         return "statistics_revenue";
     }
 

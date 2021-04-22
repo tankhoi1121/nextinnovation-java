@@ -8,6 +8,9 @@ package com.knt.service;
 import com.knt.pojo.Customer;
 import com.knt.pojo.Product;
 import com.knt.pojo.ProductCustomer;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -16,4 +19,6 @@ import com.knt.pojo.ProductCustomer;
 public interface ProductCustomerService {
 
     public boolean addPC(ProductCustomer pc);
+
+    public List<Object> statRevenue(LocalDate fromDate, LocalDate toDate);
 }

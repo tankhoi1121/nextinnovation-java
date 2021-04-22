@@ -9,6 +9,9 @@ import com.knt.persistence.ProductCustomerRepository;
 import com.knt.pojo.Customer;
 import com.knt.pojo.Product;
 import com.knt.pojo.ProductCustomer;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,11 @@ public class ProductCustomerServiceImpl implements ProductCustomerService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Object> statRevenue(LocalDate fromDate, LocalDate toDate) {
+        return this.productCustomerRepository.statRevenue(fromDate, toDate);
     }
 
 }
