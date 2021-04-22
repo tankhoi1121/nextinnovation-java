@@ -21,8 +21,6 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
-import javax.transaction.Transaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -90,7 +88,7 @@ public class TourRepositoryImpl implements TourRepository {
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<Tour> root = cq.from(Tour.class);
-        cq.select(root);
+        cq.select(root).where(cb.equal(root.get(Tour_.status), 0));
         TypedQuery<Tour> q = session.createQuery(cq);
         return q.getResultList();
     }
@@ -153,6 +151,27 @@ public class TourRepositoryImpl implements TourRepository {
                 session.save(tourDetail);
             }
 //            session.save(tourDetails);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Transactional
+    @Override
+    public boolean deleteTour(int tourId) {
+        try {
+            if(this.getTourById(tourId) == null){
+                return false;
+            }
+            
+            Session s = this.getSessionFactory.getObject().getCurrentSession();
+            CriteriaBuilder cb = s.getCriteriaBuilder();
+            CriteriaUpdate<Tour> cu = cb.createCriteriaUpdate(Tour.class);
+            Root<Tour> root = cu.from(Tour.class);            
+            cu.set("status", -1);
+            cu.where(cb.equal(root.get(Tour_.id), tourId));
+            s.createQuery(cu).executeUpdate();
         } catch (Exception e) {
             return false;
         }

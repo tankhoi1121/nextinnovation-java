@@ -30,4 +30,6 @@ public interface TourRepository {
     public boolean addListTourDetails(List<Tourdetails> tour);
 
     public Tourdetails x(int tourId);
+    
+    public boolean deleteTour(int tourId);
 }

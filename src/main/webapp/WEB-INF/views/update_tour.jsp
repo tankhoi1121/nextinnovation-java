@@ -20,8 +20,9 @@
         <div class="container-fluid">
             <c:forEach items="${allTourId}" var="item">
                 <div class ="row">
-                    <div class="col-sm-4">${item.id}</div>
-                    <div class="col-sm-4"><a class="btn btn-primary" href="<c:url value="/admin/tour/${item.id}"/>">Edit</a></div>
+                    <div class="col-sm-1">${item.id}</div>
+                    <div class="col-sm-1"><a class="btn btn-primary" href="<c:url value="/admin/tour/${item.id}"/>">Edit</a></div>
+                    <div class="col-sm-1"><a class="btn btn-warning" href="<c:url value="/admin/tour_delete/${item.id}"/>">Delete</a></div>
                 </div>
             </c:forEach>
 

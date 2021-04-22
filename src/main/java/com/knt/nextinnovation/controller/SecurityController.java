@@ -35,6 +35,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  *
@@ -138,6 +139,12 @@ public class SecurityController {
         return "individual_tour";
     }
 
+    @GetMapping("/tour_delete/{id}")
+    public String  deleteTourById(@PathVariable int id){
+        this.tourService.deleteTour(id);
+        return "redirect:http://localhost:8080/nextinnovation/admin/update_tour";
+    }
+    
     @PostMapping("/tour/{id}")
     public String updateTourById(@PathVariable int id, @Valid @ModelAttribute("tour") Tour tour, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
