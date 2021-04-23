@@ -95,14 +95,14 @@ public class TourRepositoryImpl implements TourRepository {
 
     @Transactional
     @Override
-    public Tour getTourBySeason(String season) {
+    public List<Tour> getTourBySeason(String season) {
         Session session = this.getSessionFactory.getObject().getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<Tour> root = cq.from(Tour.class);
         cq.select(root).where(cb.equal(root.get(Tour_.season), season));
         TypedQuery<Tour> q = session.createQuery(cq);
-        return q.getSingleResult();
+        return q.getResultList();
     }
 
     @Transactional
@@ -110,7 +110,7 @@ public class TourRepositoryImpl implements TourRepository {
     public boolean addTour(Tour tour) {
         try {
             Session session = this.getSessionFactory.getObject().getCurrentSession();
-
+            tour.setStatus(0);
             session.save(tour);
 
         } catch (Exception e) {
@@ -161,14 +161,14 @@ public class TourRepositoryImpl implements TourRepository {
     @Override
     public boolean deleteTour(int tourId) {
         try {
-            if(this.getTourById(tourId) == null){
+            if (this.getTourById(tourId) == null) {
                 return false;
             }
-            
+
             Session s = this.getSessionFactory.getObject().getCurrentSession();
             CriteriaBuilder cb = s.getCriteriaBuilder();
             CriteriaUpdate<Tour> cu = cb.createCriteriaUpdate(Tour.class);
-            Root<Tour> root = cu.from(Tour.class);            
+            Root<Tour> root = cu.from(Tour.class);
             cu.set("status", -1);
             cu.where(cb.equal(root.get(Tour_.id), tourId));
             s.createQuery(cu).executeUpdate();

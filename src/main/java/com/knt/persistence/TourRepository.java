@@ -19,7 +19,7 @@ public interface TourRepository {
 
     public List<Tour> getAllTour();
 
-    public Tour getTourBySeason(String season);
+    public List<Tour> getTourBySeason(String season);
 
     public List<Tourdetails> getTourDetailByTourId(int tourId);
 
@@ -30,6 +30,6 @@ public interface TourRepository {
     public boolean addListTourDetails(List<Tourdetails> tour);
 
     public Tourdetails x(int tourId);
-    
+
     public boolean deleteTour(int tourId);
 }

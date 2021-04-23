@@ -18,6 +18,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-10">
+                    <div class= "text-success" id= "successStatus"></div>
                     <div class = "mb-3">
                         <label class= "text-light">Tour Id:</label>
                         <label class= "text-light" id= "tourId">${product.tourId}</label>
@@ -95,9 +96,12 @@
                     headers: {"Content-type": "application/json;charset=UTF-8"},
                     body: JSON.stringify(list)
                 }).then(function (res) {
-                    return res.json();
-                }).then(data => {
-                    console.log(data);
+                    if (res.status == 200) {
+                        document.getElementById("successStatus").innerHTML = "Success";
+                        setTimeout(() => {
+                            location.reload();
+                        }, 5000);
+                    }
                 })
             }
         </script>

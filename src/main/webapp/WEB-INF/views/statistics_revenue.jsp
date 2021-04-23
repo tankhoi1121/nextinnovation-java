@@ -98,7 +98,11 @@
                         return res.json();
                     }).then(data => {
 //                        console.log(data);
-                        totalRevenue.innerHTML = data;
+                        var revenue = 0
+                        for (var i = 0; i < data.length; i++) {
+                            revenue = revenue + data[i];
+                        }
+                        totalRevenue.innerHTML = revenue;
                     })
                 }
             </script>

@@ -43,7 +43,7 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public Tour getTourBySeason(String season) {
+    public List<Tour> getTourBySeason(String season) {
         return this.tourRepository.getTourBySeason(season);
     }
 
@@ -78,7 +78,7 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public boolean deleteTour(int tourId) {
-        if(this.tourRepository.deleteTour(tourId)){
+        if (this.tourRepository.deleteTour(tourId)) {
             return true;
         }
         return false;

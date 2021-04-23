@@ -57,11 +57,12 @@ public class ProductCustomerRepositoryImpl implements ProductCustomerRepository 
         Root<Product> root = cq.from(Product.class);
         CollectionJoin<Product, ProductCustomer> pc = root.join(Product_.productCustomerCollection);
 
-        cq.multiselect(cb.prod(cb.sum(pc.get(ProductCustomer_.qty)), root.get(Product_.priceForAdult)).alias("revenue"));
+        cq.multiselect(cb.prod(cb.sum(pc.get(ProductCustomer_.qty)), cb.sum(root.get(Product_.priceForAdult))).alias("revenue"));
 
         Predicate p1 = cb.greaterThanOrEqualTo(pc.get(ProductCustomer_.inputDate), convertToDateViaSqlDate(fromDate));
         Predicate p2 = cb.lessThanOrEqualTo(pc.get(ProductCustomer_.inputDate), convertToDateViaSqlDate(toDate));
         cq.having(p1, p2);
+        cq.groupBy(pc.get(ProductCustomer_.inputDate));
         return s.createQuery(cq).getResultList();
     }
 

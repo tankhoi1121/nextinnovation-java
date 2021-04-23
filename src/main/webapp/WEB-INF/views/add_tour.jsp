@@ -52,7 +52,13 @@
                                 </div>
                             </div>
 
-                            <input  name ="season" class="form-control" id="seasonInput" placeholder="Please input character not number"/>
+                            <!--                            <input  name ="season" class="form-control" id="seasonInput" placeholder="Please input character not number"/>-->
+                            <select name ="season" class="form-select" id="seasonInput" >
+                                <option value= "xuân">xuân</option>
+                                <option value= "hạ">hạ</option>
+                                <option value= "thu">thu</option>
+                                <option value= "đông">đông</option>
+                            </select>
                         </div>
                         <div class ="mb-3">
                             <div class="row">

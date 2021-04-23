@@ -5,6 +5,7 @@
  */
 package com.knt.nextinnovation.controller;
 
+import com.knt.persistence.ProductRepository;
 import com.knt.pojo.Commenttour;
 import com.knt.pojo.News;
 import com.knt.pojo.Product;
@@ -64,6 +65,9 @@ public class SecurityController {
     @Autowired
     private ProductCustomerService productCustomerService;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {
 
@@ -114,6 +118,7 @@ public class SecurityController {
     @GetMapping("/add_tour")
     public String addTour(Model model) {
         model.addAttribute("message", "");
+
         return "add_tour";
     }
 
@@ -172,7 +177,7 @@ public class SecurityController {
     Commenttour addCommentTour(@RequestBody Commenttour ct) {
         this.commentTourService.addComment(ct);
         Commenttour commenttour = new Commenttour();
-        return commenttour;
+        return ct;
     }
 
     @GetMapping("/add_tour_detail")
@@ -229,6 +234,7 @@ public class SecurityController {
 
     @PostMapping("add_product")
     public String addProductExec(@ModelAttribute("product") Product p, Model model) {
+        this.productRepository.addProduct(p);
         return "add_product";
     }
 

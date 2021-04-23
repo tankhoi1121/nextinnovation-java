@@ -74,7 +74,12 @@ public class HelloController {
         }
 
         if (!season.isEmpty()) {
-            model.addAttribute("info", this.tourService.getTourBySeason(season));
+            if (this.tourService.getTourBySeason(season) == null) {
+                model.addAttribute("info", "");
+            } else {
+                model.addAttribute("info", this.tourService.getTourBySeason(season));
+            }
+
         } else {
             model.addAttribute("info", "");
         }
@@ -84,13 +89,13 @@ public class HelloController {
 
     @GetMapping("/td/{id}")
     public String tourDetail(@PathVariable int id, Model model) {
-        model.addAttribute("tour", this.tourService.getTourById(id));
+        model.addAttribute("tour", this.tourService.getTourById(id) != null ? this.tourService.getTourById(id) : null);
 
-        model.addAttribute("ok", this.tourService.getTourDetailByTourId(id));
+        model.addAttribute("ok", this.tourService.getTourDetailByTourId(id) != null ? this.tourService.getTourDetailByTourId(id) : null);
 
-        model.addAttribute("product", this.productService.getProductById(id));
+        model.addAttribute("product", this.productService.getProductById(id) != null ? this.productService.getProductById(id) : null);
 
-        model.addAttribute("allCommentTour", this.commentTourService.getAllCommentByTourId(id));
+        model.addAttribute("allCommentTour", this.commentTourService.getAllCommentByTourId(id) != null ? this.commentTourService.getAllCommentByTourId(id) : "");
         return "detail";
     }
 
@@ -102,7 +107,7 @@ public class HelloController {
 
     @PostMapping("/order_confirm")
     public @ResponseBody
-    Product OrderExec(@RequestBody Object[] list) {
+    String OrderExec(@RequestBody Object[] list) {
         JSONObject obj = new JSONObject(list[0].toString());
 
         Customer cust = new Customer();
@@ -127,7 +132,7 @@ public class HelloController {
         if (!this.productCustomerService.addPC(pc)) {
             return null;
         }
-        return p;
+        return "Success";
 //        return null;
     }
 

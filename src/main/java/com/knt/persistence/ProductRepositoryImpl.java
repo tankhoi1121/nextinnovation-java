@@ -41,11 +41,15 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Transactional
     @Override
     public Product getProductById(int i) {
+
         Session s = this.getSessionFactory.getObject().getCurrentSession();
         CriteriaBuilder cb = s.getCriteriaBuilder();
         CriteriaQuery<Product> cq = cb.createQuery(Product.class);
         Root<Product> root = cq.from(Product.class);
         cq.select(root).where(cb.equal(root.get(Product_.tourId), i));
+        if (s.createQuery(cq).getSingleResult() == null) {
+            return null;
+        }
         return s.createQuery(cq).getSingleResult();
     }
 

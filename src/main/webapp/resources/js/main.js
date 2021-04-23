@@ -39,12 +39,12 @@ function addComment() {
         headers: {"Content-type": "application/json;charset=UTF-8"},
         body: JSON.stringify(tour),
     }).then(function (res) {
-        return res.json();
-
-    }).then(data => {
-        console.log(data);
         location.reload();
     });
+//            .then(data => {
+//        console.log(data);
+//
+//    });
 }
 
 function getValue() {

@@ -19,7 +19,7 @@ public interface TourService {
 
     public List<Tour> getAllTour();
 
-    public Tour getTourBySeason(String season);
+    public List<Tour> getTourBySeason(String season);
 
     public List<Tourdetails> getTourDetailByTourId(int tourId);
 
@@ -30,6 +30,6 @@ public interface TourService {
     public boolean updateTour(Tour tour);
 
     public boolean addListTourDetails(List<Tourdetails> tour);
-    
+
     public boolean deleteTour(int tourId);
 }
