@@ -55,29 +55,32 @@
                     </table>
                 </div>
             </div>
-            <!--            <canvas id="bar-chart" width="800" height="450"></canvas>
-                        <script>
-                            new Chart(document.getElementById("bar-chart"), {
-                                type: 'bar',
-                                data: {
-                                    labels: ["Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                                    datasets: [
-                                        {
-                                            label: "Population (millions)",
-                                            backgroundColor: ["#3e95cd"],
-                                            data: [2478, 5267, 734, 784, 433, 5000, 7455, 3334, 1547, 8744, 1111, 3649]
-                                        }
-                                    ]
-                                },
-                                options: {
-                                    legend: {display: false},
-                                    title: {
-                                        display: true,
-                                        text: 'Revenue a whole of the year'
-                                    }
+            <canvas id="bar-chart" width="800" height="450"></canvas>
+            <script>
+                function createChart(dataInput) {
+                    new Chart(document.getElementById("bar-chart"), {
+                        type: 'bar',
+                        data: {
+                            labels: ["Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                            datasets: [
+                                {
+                                    label: "Population (millions)",
+                                    backgroundColor: "#3e95cd",
+                                    data: dataInput
                                 }
-                            })
-                        </script>-->
+                            ]
+                        },
+                        options: {
+                            legend: {display: false},
+                            title: {
+                                display: true,
+                                text: 'Revenue a whole of the year'
+                            }
+                        }
+                    });
+                }
+
+            </script>
             <script>
                 function  getRevenue() {
                     var stat = {
@@ -97,12 +100,63 @@
                     }).then(function (res) {
                         return res.json();
                     }).then(data => {
-//                        console.log(data);
-                        var revenue = 0
-                        for (var i = 0; i < data.length; i++) {
-                            revenue = revenue + data[i];
+                        console.log(data);
+                        if (data.length > 0) {
+                            //                        Jan Feb March April May Jun July Aug Sep Oct Nov Dec
+                            var realData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                            var year = data[0][2];
+                            for (var i = 0; i < data.length; i++) {
+                                if (data[i][2] == year) {
+                                    switch (data[i][1]) {
+                                        case 1:
+                                            realData[0] = realData[0] + data[i][0];
+                                            break;
+                                        case 2:
+                                            realData[1] = realData[1] + data[i][0];
+                                            break;
+                                        case 3:
+                                            realData[2] = realData[2] + data[i][0];
+                                            break;
+                                        case 4:
+                                            realData[3] = realData[3] + data[i][0];
+                                            break;
+                                        case 5:
+                                            realData[4] = realData[4] + data[i][0];
+                                            break;
+                                        case 6:
+                                            realData[5] = realData[5] + data[i][0];
+                                            break;
+                                        case 7:
+                                            realData[6] = realData[6] + data[i][0];
+                                            break;
+                                        case 8:
+                                            realData[7] = realData[7] + data[i][0];
+                                            break;
+                                        case 9:
+                                            realData[8] = realData[8] + data[i][0];
+                                            break;
+                                        case 10:
+                                            realData[9] = realData[9] + data[i][0];
+                                            break;
+                                        case 11:
+                                            realData[10] = realData[10] + data[i][0];
+                                            break;
+                                        case 12:
+                                            realData[11] = realData[11] + data[i][0];
+                                            break;
+                                    }
+                                }
+                            }
+                            createChart(realData);
                         }
-                        totalRevenue.innerHTML = revenue;
+
+
+//                        var revenue = 0
+//                        for (var i = 0; i < data.length; i++) {
+//                            revenue = reve
+//                            nue + data[i];
+//                        }
+//                        totalRevenue.innerHTML = revenue;
                     })
                 }
             </script>

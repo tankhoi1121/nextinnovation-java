@@ -51,13 +51,18 @@ public class ProductCustomerRepositoryImpl implements ProductCustomerRepository 
     @Transactional
     @Override
     public List<Object> statRevenue(LocalDate fromDate, LocalDate toDate) {
+
+        Calendar calendar = Calendar.getInstance();
+
         Session s = this.getSessionFactory.getObject().getCurrentSession();
         CriteriaBuilder cb = s.getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<Product> root = cq.from(Product.class);
         CollectionJoin<Product, ProductCustomer> pc = root.join(Product_.productCustomerCollection);
 
-        cq.multiselect(cb.prod(cb.sum(pc.get(ProductCustomer_.qty)), cb.sum(root.get(Product_.priceForAdult))).alias("revenue"));
+        cq.multiselect(cb.prod(cb.sum(pc.get(ProductCustomer_.qty)), cb.sum(root.get(Product_.priceForAdult))).alias("revenue"),
+                cb.function("month", Integer.class, pc.get(ProductCustomer_.inputDate)),
+                cb.function("year", Integer.class, pc.get(ProductCustomer_.inputDate)));
 
         Predicate p1 = cb.greaterThanOrEqualTo(pc.get(ProductCustomer_.inputDate), convertToDateViaSqlDate(fromDate));
         Predicate p2 = cb.lessThanOrEqualTo(pc.get(ProductCustomer_.inputDate), convertToDateViaSqlDate(toDate));

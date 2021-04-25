@@ -9,6 +9,8 @@ import com.knt.persistence.ProductRepository;
 import com.knt.pojo.Commenttour;
 import com.knt.pojo.News;
 import com.knt.pojo.Product;
+import com.knt.pojo.ProductCustomer;
+import com.knt.pojo.ProductCustomer_;
 import com.knt.pojo.Staff;
 import com.knt.pojo.Tour;
 import com.knt.pojo.Tourdetails;
@@ -17,9 +19,16 @@ import com.knt.service.NewsService;
 import com.knt.service.ProductCustomerService;
 import com.knt.service.StaffService;
 import com.knt.service.TourService;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +42,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
+import org.hibernate.Session;
 import org.json.JSONObject;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.MediaType;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,6 +61,9 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping(value = "/admin")
 public class SecurityController {
+
+    @Autowired
+    private LocalSessionFactoryBean getSessionFactory;
 
     @Autowired
     private StaffService staffService;
@@ -253,6 +268,22 @@ public class SecurityController {
         List<Object> list = this.productCustomerService.statRevenue(LocalDate.of(Integer.parseInt(fromDate[0]), Integer.parseInt(fromDate[1]), Integer.parseInt(fromDate[2])), LocalDate.of(Integer.parseInt(toDate[0]), Integer.parseInt(toDate[1]), Integer.parseInt(toDate[2])));
 
         return list;
+    }
+
+    @Transactional
+    @GetMapping("test_data")
+    public @ResponseBody
+    List<Object> test() {
+
+        Session s = this.getSessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder cb = s.getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<ProductCustomer> root = cq.from(ProductCustomer.class);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        cq.multiselect(cb.function("month", Integer.class, root.get(ProductCustomer_.inputDate)),
+                cb.function("year", Integer.class, root.get(ProductCustomer_.inputDate)));
+        return s.createQuery(cq).getResultList();
     }
 
 }// End Class
