@@ -93,12 +93,12 @@ async function sendListTourDetail(listTD) {
     fetch("/nextinnovation/admin/add_tour_detail", {
         method: "POST",
         headers: {"Content-type": "application/json;charset=UTF-8"},
-        body: JSON.stringify(listTD),
+        body: JSON.stringify(listTD)
     }).then(function (res) {
         return res.json();
     }).then(data => {
         console.log(data);
-    })
+    });
     x();
     //location.reload();
 }

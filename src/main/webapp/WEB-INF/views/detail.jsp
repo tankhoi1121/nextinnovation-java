@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>        
-        <title>JSP Page</title>
+        <title>Tour Details</title>
         <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap.min.css"/>' type="text/css" media="all"/>
         <script src="<c:url value="/resources/js/bootstrap.bundle.min.js"/>"></script>
     </head>
