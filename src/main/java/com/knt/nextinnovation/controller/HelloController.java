@@ -136,20 +136,6 @@ public class HelloController {
 //        return null;
     }
 
-    @GetMapping("/test")
-    public String test(Model model) {
-        Object[] x = this.tourService.getTourDetailByTourId(15192).toArray();
-        model.addAttribute("test", x[0]);
-
-        return "test";
-    }
-
-    @GetMapping("/x")
-    public String x(Model model) {
-        model.addAttribute("x", this.tourService.x(15212));
-        return "x";
-    }
-
     @GetMapping("all_news")
     public String getAllNews(Model model) {
         model.addAttribute("allnews", this.newsService.getAllNews());
